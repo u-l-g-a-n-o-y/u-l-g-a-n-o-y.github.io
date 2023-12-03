@@ -14,12 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-radar.min.css">
   <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="能力有限 只能复现能做的一些题 其他的慢慢补">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/Rusgx94JzwmIdvU.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/OEBXFZSzy8VUcGt.png">
 <meta property="article:published_time" content="2023-12-02T16:22:06.000Z">
-<meta property="article:modified_time" content="2023-12-03T04:47:01.919Z">
+<meta property="article:modified_time" content="2023-12-03T05:28:48.527Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/12/03/VSfdpxDN2AtmHkJ.png">
@@ -120,6 +120,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -154,11 +155,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -203,7 +231,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-03 00:22:06 / 修改时间：12:47:01" itemprop="dateCreated datePublished" datetime="2023-12-03T00:22:06+08:00">2023-12-03</time>
+              <time title="创建时间：2023-12-03 00:22:06 / 修改时间：13:28:48" itemprop="dateCreated datePublished" datetime="2023-12-03T00:22:06+08:00">2023-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,14 +256,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>50k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1:31</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -257,10 +285,13 @@
 <p>两种情况</p>
 <ul>
 <li><code>(2x^2)^e</code> </li>
-<li><code>(2x^2+1)^e</code><br><img src="https://s2.loli.net/2023/12/03/m9Br3gGlnudUvAO.png" alt="AHYCN6UYNIUKOMT____HZPE.png"><br><font color=red size=5>不要忘了欧拉准则！！！二次剩余最初的判断方式！！！</font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> enc:</span><br><span class="line">    <span class="comment"># print(i)</span></span><br><span class="line">    i = <span class="built_in">int</span>(i)</span><br><span class="line">    <span class="keyword">if</span>(kronecker(i,n1)==<span class="number">1</span>):</span><br><span class="line">        p = <span class="string">&#x27;1&#x27;</span>+p</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p = <span class="string">&#x27;0&#x27;</span>+p</span><br><span class="line"><span class="comment"># print(int(p,2))</span></span><br></pre></td></tr></table></figure>
-或者这种<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(kronecker(i,n1)==-<span class="number">1</span>):</span><br><span class="line">        p = <span class="string">&#x27;0&#x27;</span>+p</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p = <span class="string">&#x27;1&#x27;</span>+p</span><br></pre></td></tr></table></figure>
-最后的flag<br><img src="https://s2.loli.net/2023/12/03/4bwU5vxHVqXTBIs.png" alt="6R1Y1YM9VKF78ACQ__@FXF0.png"></li>
+<li><code>(2x^2+1)^e</code></li>
 </ul>
+<p><img src="https://s2.loli.net/2023/12/03/m9Br3gGlnudUvAO.png" alt="AHYCN6UYNIUKOMT____HZPE.png"><br><font color=red size=5>不要忘了欧拉准则！！！二次剩余最初的判断方式！！！</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> enc:</span><br><span class="line">    <span class="comment"># print(i)</span></span><br><span class="line">    i = <span class="built_in">int</span>(i)</span><br><span class="line">    <span class="keyword">if</span>(kronecker(i,n1)==<span class="number">1</span>):</span><br><span class="line">        p = <span class="string">&#x27;1&#x27;</span>+p</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p = <span class="string">&#x27;0&#x27;</span>+p</span><br><span class="line"><span class="comment"># print(int(p,2))</span></span><br></pre></td></tr></table></figure>
+<p>或者这种</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(kronecker(i,n1)==-<span class="number">1</span>):</span><br><span class="line">        p = <span class="string">&#x27;0&#x27;</span>+p</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p = <span class="string">&#x27;1&#x27;</span>+p</span><br></pre></td></tr></table></figure>
+<p>最后的flag<br><img src="https://s2.loli.net/2023/12/03/4bwU5vxHVqXTBIs.png" alt="6R1Y1YM9VKF78ACQ__@FXF0.png"></p>
 <h2 id="backpack"><a href="#backpack" class="headerlink" title="backpack"></a>backpack</h2><p>粗浅学了下格密码 看了看背包密码LLL破解的本质<br>还是要学会自己造格子<br>这题跟普通的背包不同在于 每6个中必有3个1<br>所以要再加上一列的约束 即 Σxi &#x3D; 24<br>借大佬的图<br><img src="https://s2.loli.net/2023/12/03/7WanPqKwBNDe2gX.png" alt="Y@V1GI@_GOC3F_LV8V_LY_H.png"><br>最后判断就是在常规的-S那列为0后加上最后一列为0<br>solution.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sage.<span class="built_in">all</span> <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">a = [<span class="number">65651991706497</span>, <span class="number">247831871690373</span>, <span class="number">120247087605020</span>, <span class="number">236854536567393</span>, <span class="number">38795708921144</span>, <span class="number">256334857906663</span>, <span class="number">120089773523233</span>, <span class="number">165349388120302</span>, <span class="number">123968326805899</span>, <span class="number">79638234559694</span>, <span class="number">259559389823590</span>, <span class="number">256776519514651</span>, <span class="number">107733244474073</span>, <span class="number">216508566448440</span>, <span class="number">39327578905012</span>, <span class="number">118682486932022</span>, <span class="number">263357223061004</span>, <span class="number">132872609024098</span>, <span class="number">44605761726563</span>, <span class="number">24908360451602</span>, <span class="number">237906955893793</span>, <span class="number">204469770496199</span>, <span class="number">7055254513808</span>, <span class="number">221802659519968</span>, <span class="number">169686619990988</span>, <span class="number">23128789035141</span>, <span class="number">208847144870760</span>, <span class="number">272339624469135</span>, <span class="number">269511404473473</span>, <span class="number">112830627321371</span>, <span class="number">73203551744776</span>, <span class="number">42843503010671</span>, <span class="number">118193938825623</span>, <span class="number">49625220390324</span>, <span class="number">230439888723036</span>, <span class="number">241486656550572</span>, <span class="number">107149406378865</span>, <span class="number">233503862264755</span>, <span class="number">269502011971514</span>, <span class="number">181805192674559</span>, <span class="number">152612003195556</span>, <span class="number">184127512098087</span>, <span class="number">165959151027513</span>, <span class="number">188723045133473</span>, <span class="number">241615906682300</span>, <span class="number">216101484550038</span>, <span class="number">81190147709444</span>, <span class="number">124498742419309</span>]</span><br><span class="line">re = <span class="number">4051501228761632</span></span><br><span class="line"></span><br><span class="line">n = <span class="built_in">len</span>(a)</span><br><span class="line">K = <span class="number">2</span>^<span class="number">10</span></span><br><span class="line">M = Matrix(ZZ,n+<span class="number">1</span>,n+<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    M[i,i] = <span class="number">1</span></span><br><span class="line">    M[i,n] = K*a[i]</span><br><span class="line">    M[i,n+<span class="number">1</span>] = K*<span class="number">1</span></span><br><span class="line">M[n,n] = -K*re</span><br><span class="line">M[n,n+<span class="number">1</span>] = -<span class="number">24</span>*K</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> M.LLL():</span><br><span class="line">    <span class="keyword">if</span>(line[-<span class="number">1</span>]==<span class="number">0</span> <span class="keyword">and</span> line[-<span class="number">2</span>]==<span class="number">0</span>):</span><br><span class="line">        x = [<span class="built_in">abs</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> line[:-<span class="number">2</span>]]</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">set</span>(x).issubset([<span class="number">0</span>, <span class="number">1</span>]):</span><br><span class="line">            <span class="built_in">print</span>(x)</span><br><span class="line">            flag = <span class="string">&#x27;DASCTF&#123;&#x27;</span>+sha256(<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]).encode()).hexdigest()+<span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2023/12/03/YjdHfbD6wquvmnB.png" alt="image.png"></p>
@@ -488,12 +519,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">50k</span>
+    <span title="站点总字数">2k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">4 分钟</span>
 </div>
 
         
@@ -550,6 +581,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

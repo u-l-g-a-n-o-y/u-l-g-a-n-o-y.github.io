@@ -34,8 +34,10 @@
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/bVn7942XuTZ18OY.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/VcswHEPriI5SOgB.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/3XKFV2lzoc18G7j.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/au16VZ8spBbtfmH.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/XWDsoRfdbH8ZJFx.png">
 <meta property="article:published_time" content="2023-12-03T11:01:53.000Z">
-<meta property="article:modified_time" content="2023-12-03T13:09:53.853Z">
+<meta property="article:modified_time" content="2023-12-03T14:02:51.660Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/12/03/IVkU3uvCy9dxPJZ.png">
@@ -223,7 +225,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：21:09:53" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
+              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：22:02:51" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,14 +250,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>4.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -347,7 +349,37 @@
 <p>OllyDbg查看notepad.exe</p>
 <p><img src="https://s2.loli.net/2023/12/03/3XKFV2lzoc18G7j.png" alt="img"></p>
 <p>这里可以看到<br>调用CreateFileW()时并非直接调用而是获取01001104处的地址来实现(所有API调用均如此)<br>地址01001104是.text节区的内存区域(IAT内存区域) 地址的值7645EA70即为加载到exe进程内存中CreateFileW()函数(位于kernel32.dll库)的地址<br>比较书和本地可以发现 01001104地址的值有差异 这也是为什么通过01001104而不是通过它指向的地址的值来调用<br>同时由于DLL的重定位 导致无法对实际地址硬编码 同时PE头中表示地址时使用的是RVA而不是VA</p>
-
+<h2 id="13-5-2-IMAGE-IMPORT-DECRIPTOR"><a href="#13-5-2-IMAGE-IMPORT-DECRIPTOR" class="headerlink" title="13.5.2 IMAGE_IMPORT_DECRIPTOR"></a>13.5.2 IMAGE_IMPORT_DECRIPTOR</h2><p>IMAGE_IMPORT_DECRIPTOR结构体记录着PE文件要导入哪些库文件<br>IMAGE_IMPORT_DECRIPTOR结构体数组也被称为IMPORT Directory Table (导入目录)<br>导入多少个库就意味着有多少个IMAGE_IMPORT_DECRIPTOR结构体</p>
+<p><img src="https://s2.loli.net/2023/12/03/au16VZ8spBbtfmH.png" alt="img"></p>
+<ul>
+<li>OriginalFirstThunk(OFT): INT的地址(RVA)</li>
+<li>Name: 库名称字符串的地址(RVA)</li>
+<li>FirstThunk(FT): IAT的地址(RVA)</li>
+</ul>
+<p>提示:</p>
+<ul>
+<li>PE头中提到的table均指数组</li>
+<li>INT和IAT是长整型 以NULL结束</li>
+<li>INT中各元素的值为IMAGE_IMPORT_BY_NAME结构体指针</li>
+<li>INT与IAT大小应相同</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/12/03/XWDsoRfdbH8ZJFx.png" alt="img"></p>
+<p>这张图中 INT和IAT各元素同时指向相同地址 但很多情况下他们是不一致的 要注意</p>
+<p>简单了解下PE装载器把导入函数输入IAT的顺序:</p>
+<ol>
+<li>读取IID的Name成员 获取库名称字符串(“kernel32.dll”)</li>
+<li>装载相应库 -&gt; LoadLibrary(“kernel32.dll”)</li>
+<li>读取IID中OFT成员 获取INT地址</li>
+<li>逐一读取INT数组中的值 获取相应IMAGE_IMPORT_BY_NAME地址(RVA)</li>
+<li>使用IIBN的Hint(ordinal)或Name项 获得相应函数的起始地址</li>
+<li>读取IID的FT(IAT)成员 获得IAT地址</li>
+<li>将上面获取的函数地址输入相应的IAT数组值</li>
+<li>重复4-7 直至INT结束(遇到NULL)</li>
+</ol>
+<h2 id="13-5-3-使用notepad-exe练习"><a href="#13-5-3-使用notepad-exe练习" class="headerlink" title="13.5.3 使用notepad.exe练习"></a>13.5.3 使用notepad.exe练习</h2><p>首先要明确 IMAGE_IMPORT_DECRIPTOR结构体不在PE头而在PE体中 但查找其位置的信息在PE头中<br>前面提到过 NT头中可选头最后一个成员DataDirectory的 [1]记录的就是IMAGE_IMPORT_DECRIPTOR结构体的起始位置(RVA)<br>值为7604<br>RVA-&gt;RAW: 第一节区 RAW&#x3D;0x7604-0x1000+0x400 &#x3D; 6A04<br>WinHEX中找到 可以看到OFT(INT)的RVA值为7990 -&gt; RAW: 6D90   Name RVA:7AAC -&gt; RAW:6EAC  FT(IAT) RVA:12C4-&gt; RAW:6C4<br>跟踪Name可以看到 comdlg.dll字符串<br>跟踪INT 第一个值为7A7A(RVA) -&gt; RAW:6E7A<br>INT是IMAGE_IMPORT_BY_NAME结构体指针数组 数组第一个元素指向函数的Ordinal值000F 函数的名称为PageSetupDlgW<br>跟踪IAT(RAW:6C4) 找到对应comdlg32.dll库</p>
+<p>在OllyDbg中查看<br>该exe的ImageBase是01000000所以PageSetupDlgW函数的IAT地址为010012C4 其值为75B83F20 是API的准确起始地址<br>在OD中转到75B83F20对应的反汇编可以看到正是函数开始的地址</p>
+<p>IAT真的很重要！ 这些操作要自己多练才能够熟悉<br>尤其是注意到IAT的第一个元素被硬编码成76324906 但是OD中实际地址应该是75B83F20！！ 所以要利用ImageBase+dll’sIAT(RVA)来找!</p>
+<h1 id="13-6-EAT"><a href="#13-6-EAT" class="headerlink" title="13.6 EAT"></a>13.6 EAT</h1>
     </div>
 
     
@@ -441,7 +473,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#13-1-%E4%BB%8B%E7%BB%8D"><span class="nav-text">13.1 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-2-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">13.2 PE文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-text">13.2.1 基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-2-VA-RVA"><span class="nav-text">13.2.2 VA&amp;RVA</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-3-PE%E5%A4%B4"><span class="nav-text">13.3 PE头</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-1-DOS%E5%A4%B4"><span class="nav-text">13.3.1 DOS头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-2-DOS%E5%AD%98%E6%A0%B9"><span class="nav-text">13.3.2 DOS存根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-3-NT%E5%A4%B4"><span class="nav-text">13.3.3 NT头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-4-NT%E5%A4%B4-%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-text">13.3.4 NT头: 文件头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-5-NT%E5%A4%B4-%E5%8F%AF%E9%80%89%E5%A4%B4"><span class="nav-text">13.3.5 NT头: 可选头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-6-%E8%8A%82%E5%8C%BA%E5%A4%B4"><span class="nav-text">13.3.6 节区头</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-4-RVA-to-RAW"><span class="nav-text">13.4 RVA to RAW</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-5-IAT"><span class="nav-text">13.5 IAT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-5-1-DLL"><span class="nav-text">13.5.1 DLL</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#13-1-%E4%BB%8B%E7%BB%8D"><span class="nav-text">13.1 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-2-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">13.2 PE文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-text">13.2.1 基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-2-VA-RVA"><span class="nav-text">13.2.2 VA&amp;RVA</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-3-PE%E5%A4%B4"><span class="nav-text">13.3 PE头</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-1-DOS%E5%A4%B4"><span class="nav-text">13.3.1 DOS头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-2-DOS%E5%AD%98%E6%A0%B9"><span class="nav-text">13.3.2 DOS存根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-3-NT%E5%A4%B4"><span class="nav-text">13.3.3 NT头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-4-NT%E5%A4%B4-%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-text">13.3.4 NT头: 文件头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-5-NT%E5%A4%B4-%E5%8F%AF%E9%80%89%E5%A4%B4"><span class="nav-text">13.3.5 NT头: 可选头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-6-%E8%8A%82%E5%8C%BA%E5%A4%B4"><span class="nav-text">13.3.6 节区头</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-4-RVA-to-RAW"><span class="nav-text">13.4 RVA to RAW</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-5-IAT"><span class="nav-text">13.5 IAT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-5-1-DLL"><span class="nav-text">13.5.1 DLL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-5-2-IMAGE-IMPORT-DECRIPTOR"><span class="nav-text">13.5.2 IMAGE_IMPORT_DECRIPTOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-5-3-%E4%BD%BF%E7%94%A8notepad-exe%E7%BB%83%E4%B9%A0"><span class="nav-text">13.5.3 使用notepad.exe练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-6-EAT"><span class="nav-text">13.6 EAT</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -504,12 +536,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">9k</span>
+    <span title="站点总字数">10k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16 分钟</span>
+    <span title="站点阅读时长">18 分钟</span>
 </div>
 
         

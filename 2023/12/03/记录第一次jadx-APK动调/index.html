@@ -22,21 +22,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="今天是伞哥哥的生日啊！">
+  <meta name="description" content="这里以NestarCTF2023 WEEK2的AndroDbgme 为例详细记录了关于解包apk 修改manifest 后重签名打包及最后jadx调试的过程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="12.3 KasakiNozomi&#39;s Birthday!">
-<meta property="og:url" content="http://example.com/2023/12/02/12-3-KasakiNozomi-s-Birthday/index.html">
+<meta property="og:title" content="记录第一次jadx APK动调">
+<meta property="og:url" content="http://example.com/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/index.html">
 <meta property="og:site_name" content="ULGANOY">
-<meta property="og:description" content="今天是伞哥哥的生日啊！">
+<meta property="og:description" content="这里以NestarCTF2023 WEEK2的AndroDbgme 为例详细记录了关于解包apk 修改manifest 后重签名打包及最后jadx调试的过程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/12/03/uknXZsdHrz42wPN.jpg">
-<meta property="article:published_time" content="2023-12-02T15:45:44.000Z">
-<meta property="article:modified_time" content="2023-12-03T06:23:42.303Z">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/thwLBGubS9EMWp4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/4ERAbnhmViyXkzw.png">
+<meta property="article:published_time" content="2023-12-03T06:27:50.000Z">
+<meta property="article:modified_time" content="2023-12-03T06:43:12.976Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2023/12/03/uknXZsdHrz42wPN.jpg">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/03/thwLBGubS9EMWp4.png">
 
-<link rel="canonical" href="http://example.com/2023/12/02/12-3-KasakiNozomi-s-Birthday/">
+<link rel="canonical" href="http://example.com/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/">
 
 
 <script id="page-configurations">
@@ -49,7 +50,7 @@
   };
 </script>
 
-  <title>12.3 KasakiNozomi's Birthday! | ULGANOY</title>
+  <title>记录第一次jadx APK动调 | ULGANOY</title>
   
 
 
@@ -195,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/02/12-3-KasakiNozomi-s-Birthday/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          12.3 KasakiNozomi's Birthday!
+          记录第一次jadx APK动调
         </h1>
 
         <div class="post-meta">
@@ -217,16 +218,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-12-02 23:45:44" itemprop="dateCreated datePublished" datetime="2023-12-02T23:45:44+08:00">2023-12-02</time>
+              <time title="创建时间：2023-12-03 14:27:50 / 修改时间：14:43:12" itemprop="dateCreated datePublished" datetime="2023-12-03T14:27:50+08:00">2023-12-03</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-03 14:23:42" itemprop="dateModified" datetime="2023-12-03T14:23:42+08:00">2023-12-03</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF-Re/" itemprop="url" rel="index"><span itemprop="name">CTF-Re</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -241,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>182</span>
+              <span>199</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -260,10 +264,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>今天是伞哥哥的生日啊！</strong></p>
+        <p>这里以NestarCTF2023 WEEK2的AndroDbgme 为例<br>详细记录了关于解包apk 修改manifest 后重签名打包及最后jadx调试的过程</p>
 <span id="more"></span>
-<p><img src="https://s2.loli.net/2023/12/03/uknXZsdHrz42wPN.jpg" alt="3092507-20230224232909457-349401112.jpg"></p>
-<p>我最最最最最最最喜欢的角色啊！！！<br>感谢京阿尼 感谢京吹 感谢利兹与青鸟~<br>这也差不多是入坑二次元一年吧~ 这一年来也改变了许许多多~<br>借霙的话吧~<br>喜欢希美的笑声        喜欢希美的一言一语<br>喜欢希美的脚步声      喜欢希美的头发<br>喜欢……<br>希美的一切~<br>🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂</p>
+<p>首先在网上下载apktool(有.jar 和 .bat)<br>然后放在 C&#x2F;Windows下 配置一下环境变量<br>使用命令: apktool  d  xxx.apk 先解包<br>然后在manifest里的这里加上一句 使得允许调试</p>
+<p><img src="https://s2.loli.net/2023/12/03/thwLBGubS9EMWp4.png" alt="0S_R`Y4K_I9JY~GO__VW__N.png](https://s2.loli.net/2023/12/03/VPq1oAuzyQxMhHv.png)
+apktool  b  xxx 重新打包成apk
+由于要重签名 所以要生成keystore
+`keytool -genkey -alias abc.keystore -keyalg RSA -validity 20000 -keystore abc.keystore`
+生成keystore后签名
+`jarsigner -verbose -keystore abc.keystore -signedjar des.apk src.APK abc.keystore`
+签名完毕就可以得到改过manifest的apk了
+接下来就是动态调试 我这里用的是 jadx+雷电模拟器
+在模拟器启动apk
+jadx打开 点击debug
+![TZ`2HWWC8___R_LP_BKT1_H.png"><br>随便下个断点 点击运行 就可以在apk看到flag了<br><img src="https://s2.loli.net/2023/12/03/4ERAbnhmViyXkzw.png" alt="1_OL6C7JB1LYNF@6V_~ZQL0.png"></p>
 
     </div>
 
@@ -279,7 +293,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/12/02/12-3-KasakiNozomi-s-Birthday/" title="12.3 KasakiNozomi&#39;s Birthday!">http://example.com/2023/12/02/12-3-KasakiNozomi-s-Birthday/</a>
+    <a href="http://example.com/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/" title="记录第一次jadx APK动调">http://example.com/2023/12/03/记录第一次jadx-APK动调/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -295,11 +309,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2023/12/03/DASCTF-X-CBCTF-2023-10/" rel="next" title="DASCTF X CBCTF 2023 10">
-      DASCTF X CBCTF 2023 10 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/12/03/DASCTF-X-CBCTF-2023-10/" rel="prev" title="DASCTF X CBCTF 2023 10">
+      <i class="fa fa-chevron-left"></i> DASCTF X CBCTF 2023 10
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

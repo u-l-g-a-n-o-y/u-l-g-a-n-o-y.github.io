@@ -33,8 +33,9 @@
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/VcswHEPriI5SOgB.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/bVn7942XuTZ18OY.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/VcswHEPriI5SOgB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/3XKFV2lzoc18G7j.png">
 <meta property="article:published_time" content="2023-12-03T11:01:53.000Z">
-<meta property="article:modified_time" content="2023-12-03T12:08:45.116Z">
+<meta property="article:modified_time" content="2023-12-03T12:31:04.681Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/12/03/IVkU3uvCy9dxPJZ.png">
@@ -222,7 +223,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：20:08:45" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
+              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：20:31:04" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -331,6 +332,21 @@
 <p>Q1. RVA &#x3D; 5000时 FileOffset &#x3D; ?<br>A1. RVA:第一节区 PTR&#x3D;RawAddress &#x3D; 400 VA &#x3D; 1000 &#x3D;&gt; RAW &#x3D; 4400</p>
 <p>Q2. RVA &#x3D; 13314<br>A2. 第三节区 VA &#x3D; B000 PTR &#x3D; 8400 &#x3D;&gt; RAW &#x3D; 10714</p>
 <p>Q3. RVA &#x3D; ABA8<br>A3. 第二节区 VA&#x3D;9000 PTR &#x3D; 7C00 &#x3D;&gt; RAW &#x3D; 97A8<br>发现算出来偏移在第三节区 说明”无法定义RVA(ABA8)相对应的RAW值”<br>原因: 第二节区的 VirtualSize比RawSize大!</p>
+<h1 id="13-5-IAT"><a href="#13-5-IAT" class="headerlink" title="13.5 IAT"></a>13.5 IAT</h1><p><strong>难点来了</strong><br>IAT: 导入地址表(Import Address Table)<br>IAT保存的内容与Windows操作系统的核心进程 内存 DLL结构等有关<br>简言之 IAT是一种表格 用来记录程序正在使用哪些库中的哪些函数</p>
+<h3 id="13-5-1-DLL"><a href="#13-5-1-DLL" class="headerlink" title="13.5.1 DLL"></a>13.5.1 DLL</h3><p>相比早期只有库(library) DLL</p>
+<ul>
+<li>不需要把库包含在程序中 单独组成DLL文件 需要时调用即可</li>
+<li>内存映射技术使加载后的DLL代码 资源 能在多个进程中实现共享</li>
+<li>更新库时只需要替换相关DLL文件即可</li>
+</ul>
+<p>加载DLL的两种方式</p>
+<ul>
+<li>显示链接: 程序使用DLL时加载 使用完毕后释放内存</li>
+<li>隐式链接: 程序一开始就一同加载DLL 程序终止时再释放占用的内存  IAT机制与这种链接方式有关</li>
+</ul>
+<p>OllyDbg查看notepad.exe</p>
+<p><img src="https://s2.loli.net/2023/12/03/3XKFV2lzoc18G7j.png" alt="img"></p>
+<p>这里可以看到<br>调用CreateFileW()时并非直接调用而是获取01001104处的地址来实现(所有API调用均如此)<br>地址01001104是.text节区的内存区域(IAT内存区域) 地址的值7645EA70即为加载到exe进程内存中CreateFileW()函数(位于kernel32.dll库)的地址<br>比较书和本地可以发现 01001104地址的值有差异 这也是为什么通过01001104而不是通过它指向的地址的值来调用<br>同时由于DLL的重定位 导致无法对实际地址硬编码 同时PE头中表示地址时使用的是RVA而不是VA</p>
 
     </div>
 
@@ -425,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#13-1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">13.1 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-2-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">13.2 PE文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">13.2.1 基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-2-VA-RVA"><span class="nav-number">2.0.2.</span> <span class="nav-text">13.2.2 VA&amp;RVA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-3-PE%E5%A4%B4"><span class="nav-number">3.</span> <span class="nav-text">13.3 PE头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-1-DOS%E5%A4%B4"><span class="nav-number">3.0.1.</span> <span class="nav-text">13.3.1 DOS头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-2-DOS%E5%AD%98%E6%A0%B9"><span class="nav-number">3.0.2.</span> <span class="nav-text">13.3.2 DOS存根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-3-NT%E5%A4%B4"><span class="nav-number">3.0.3.</span> <span class="nav-text">13.3.3 NT头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-4-NT%E5%A4%B4-%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-number">3.0.4.</span> <span class="nav-text">13.3.4 NT头: 文件头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-5-NT%E5%A4%B4-%E5%8F%AF%E9%80%89%E5%A4%B4"><span class="nav-number">3.0.5.</span> <span class="nav-text">13.3.5 NT头: 可选头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-6-%E8%8A%82%E5%8C%BA%E5%A4%B4"><span class="nav-number">3.0.6.</span> <span class="nav-text">13.3.6 节区头</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-4-RVA-to-RAW"><span class="nav-number">4.</span> <span class="nav-text">13.4 RVA to RAW</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#13-1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">13.1 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-2-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">13.2 PE文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">13.2.1 基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-2-VA-RVA"><span class="nav-number">2.0.2.</span> <span class="nav-text">13.2.2 VA&amp;RVA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-3-PE%E5%A4%B4"><span class="nav-number">3.</span> <span class="nav-text">13.3 PE头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-1-DOS%E5%A4%B4"><span class="nav-number">3.0.1.</span> <span class="nav-text">13.3.1 DOS头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-2-DOS%E5%AD%98%E6%A0%B9"><span class="nav-number">3.0.2.</span> <span class="nav-text">13.3.2 DOS存根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-3-NT%E5%A4%B4"><span class="nav-number">3.0.3.</span> <span class="nav-text">13.3.3 NT头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-4-NT%E5%A4%B4-%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-number">3.0.4.</span> <span class="nav-text">13.3.4 NT头: 文件头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-5-NT%E5%A4%B4-%E5%8F%AF%E9%80%89%E5%A4%B4"><span class="nav-number">3.0.5.</span> <span class="nav-text">13.3.5 NT头: 可选头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-6-%E8%8A%82%E5%8C%BA%E5%A4%B4"><span class="nav-number">3.0.6.</span> <span class="nav-text">13.3.6 节区头</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-4-RVA-to-RAW"><span class="nav-number">4.</span> <span class="nav-text">13.4 RVA to RAW</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-5-IAT"><span class="nav-number">5.</span> <span class="nav-text">13.5 IAT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-5-1-DLL"><span class="nav-number">5.0.1.</span> <span class="nav-text">13.5.1 DLL</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -488,12 +504,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">8k</span>
+    <span title="站点总字数">9k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">16 分钟</span>
 </div>
 
         

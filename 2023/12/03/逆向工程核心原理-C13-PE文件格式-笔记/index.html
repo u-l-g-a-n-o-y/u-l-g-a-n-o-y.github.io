@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/12/03/IVkU3uvCy9dxPJZ.png">
 <meta property="article:published_time" content="2023-12-03T11:01:53.000Z">
-<meta property="article:modified_time" content="2023-12-03T11:44:23.160Z">
+<meta property="article:modified_time" content="2023-12-03T11:46:32.921Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/12/03/IVkU3uvCy9dxPJZ.png">
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：19:44:23" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
+              <time title="创建时间：2023-12-03 19:01:53 / 修改时间：19:46:32" itemprop="dateCreated datePublished" datetime="2023-12-03T19:01:53+08:00">2023-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,7 +293,7 @@
 <ul>
 <li>Magic: IMAGE_OPTIONAL_HEADER为32位-10B 64位-20B</li>
 <li><strong>AddressOfEntryPoint</strong>: 持有EP的RVA值！！！ 指出程序最先执行代码起始地址！！！</li>
-<li>ImageBase: 在PE文件被加载到内存时 指出有限装载的地址<br>EXE DLL被装载到用户内存的0<del>7FFFFFFF    SYS被装载到内核内存的80000000</del>FFFFFFFF<br>一般而言 用开发工具创建EXE后 ImageBase值为00400000 DLL文件的ImageBase值为10000000(也可为其他值)<br>执行PE文件时 PE装载器先创建进程 再将文件载入内存 然后把EIP设置为ImageBase+AddressOfEntryPoint</li>
+<li>ImageBase: 在PE文件被加载到内存时 指出有限装载的地址<br>EXE DLL被装载到用户内存的0 ~ 7FFFFFFF    SYS被装载到内核内存的80000000 ~ FFFFFFFF<br>一般而言 用开发工具创建EXE后 ImageBase值为00400000 DLL文件的ImageBase值为10000000(也可为其他值)<br>执行PE文件时 PE装载器先创建进程 再将文件载入内存 然后把EIP设置为ImageBase+AddressOfEntryPoint</li>
 <li>SectionAlignment FileAlignment: PE文件的body部分被划分为节区<br>FileAlignment指定了节区在磁盘文件中的最小单位<br>SectionAlignment则指定了节区在内存中的最小单位</li>
 <li>SizeOfImage: 加载PE文件到内存时 SizeOfImage指定了PE Image在虚存中所占空间大小</li>
 <li>SizeOfHeaders: 指出整个PE头的大小<br>第一节区所在位置与SizeOfHeaders距文件开始的offset相同</li>

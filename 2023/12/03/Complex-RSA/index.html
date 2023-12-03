@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-radar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"u-l-g-a-n-o-y.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="复数RSA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Complex RSA">
+<meta property="og:url" content="http://u-l-g-a-n-o-y.github.io/2023/12/03/Complex-RSA/index.html">
+<meta property="og:site_name" content="ULGANOY">
+<meta property="og:description" content="复数RSA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/03/SetLslk9bdAMVp4.png">
+<meta property="article:published_time" content="2023-12-03T09:58:41.000Z">
+<meta property="article:modified_time" content="2023-12-03T10:43:36.217Z">
+<meta property="article:author" content="U-L-G-A-N-O-Y">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/03/SetLslk9bdAMVp4.png">
+
+<link rel="canonical" href="http://u-l-g-a-n-o-y.github.io/2023/12/03/Complex-RSA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Complex RSA | ULGANOY</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ULGANOY</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Laus Deo</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://u-l-g-a-n-o-y.github.io/2023/12/03/Complex-RSA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="U-L-G-A-N-O-Y">
+      <meta itemprop="description" content="Kitauji Fightooooo!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ULGANOY">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Complex RSA
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-03 17:58:41 / 修改时间：18:43:36" itemprop="dateCreated datePublished" datetime="2023-12-03T17:58:41+08:00">2023-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF-Crypto/" itemprop="url" rel="index"><span itemprop="name">CTF-Crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>627</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>复数RSA</p>
+<span id="more"></span>
+<p>在GeekGame2023遇到了复数RSA的概念 挺有意思的(orz) 记录一下</p>
+<h2 id="复数域上的rsa-demo"><a href="#复数域上的rsa-demo" class="headerlink" title="复数域上的rsa demo"></a>复数域上的rsa demo</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> invert,lcm,is_prime</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setrecursionlimit(<span class="number">2047</span>)</span><br><span class="line"></span><br><span class="line">f = (<span class="number">378122348642214690905411683807377396279362526734068034297186493255873563264253248095197659138069664908850853277799239471404715546747080714581633876343291058815268009173602365587463522797812239900814474973941995698621021680129530453282192603316731832323767320307650941745085796583822798379896337325L</span>, <span class="number">205549984221850341303682190742446959375043769671555741781145106776498798455293849755553794941345135675348633855787880355726112506553703853175271830126908219803257875131387292937296039523359975622001865593227631119497003599166091642640101746534401068507972834895023584843991641629874709898672559632L</span>)</span><br><span class="line">e = <span class="number">59107</span></span><br><span class="line">p = <span class="number">228517792080140341</span></span><br><span class="line">q = <span class="number">1675909164550923263854591345270445396052847869117231939809062226222204253885693425526434134321712288675268468398852452684029376569327518089966506865838909486699078280423099271324646863671350838232140981094611254627738568184261530942469845202934677427234062382272736609418198352717</span></span><br><span class="line"></span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cadd</span>(<span class="params">a,b,n</span>):</span><br><span class="line">    <span class="keyword">return</span> (a[<span class="number">0</span>]+b[<span class="number">0</span>]%n,a[<span class="number">1</span>]+b[<span class="number">1</span>]%n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cmul</span>(<span class="params">a,b,n</span>):</span><br><span class="line">    <span class="keyword">return</span> ((a[<span class="number">0</span>]*b[<span class="number">0</span>]-a[<span class="number">1</span>]*b[<span class="number">1</span>])%n,(a[<span class="number">0</span>]*b[<span class="number">1</span>]+a[<span class="number">1</span>]*b[<span class="number">0</span>])%n)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cpow</span>(<span class="params">a,k,n</span>):</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> (<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">if</span>(k%<span class="number">2</span>==<span class="number">0</span>):</span><br><span class="line">        a=cmul(a,a,n)</span><br><span class="line">        <span class="keyword">return</span> cpow(a,k/<span class="number">2</span>,n)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> cmul(a,cpow(cmul(a,a,n),(k-<span class="number">1</span>)/<span class="number">2</span>,n),n)</span><br><span class="line"></span><br><span class="line">o=lcm((p*p-<span class="number">1</span>),(q*q-<span class="number">1</span>))</span><br><span class="line">fm=cpow(f,invert(e,o),n)</span><br><span class="line"><span class="built_in">print</span>(fm)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复数中的欧拉函数</p>
+<ul>
+<li>phi(p) &#x3D; p^2 - 1</li>
+<li>phi(q) &#x3D; q^2 - 1</li>
+<li>phi(n) &#x3D; phi(p) * phi(q)</li>
+</ul>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h3 id="2023极客大挑战-EzComplex"><a href="#2023极客大挑战-EzComplex" class="headerlink" title="2023极客大挑战-EzComplex"></a>2023极客大挑战-EzComplex</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sage9.3</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">flag = <span class="string">b&#x27;FAKE&#123;Do_You_know_Complex_numbers&#125;&#x27;</span></span><br><span class="line">p = random_prime(<span class="number">1</span> &lt;&lt; <span class="number">384</span>)</span><br><span class="line">q = random_prime(<span class="number">1</span> &lt;&lt; <span class="number">384</span>)</span><br><span class="line">n = p * q</span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">N = <span class="built_in">pow</span>(p, <span class="number">2</span>) + <span class="built_in">pow</span>(q, <span class="number">2</span>)</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m,e,n)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"><span class="built_in">print</span>(N)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">122977267154486898127643454001467185956864368276013342450998567212966113302012584153291519651365278888605594000436279106907163024162771486315220072170917153855370362692990814276908399943293854077912175867886513964032241638851526276</span></span><br><span class="line"><span class="string">973990451943921675425625260267293227445098713194663380695161260771362036776671793195525239267004528550439258233703798932349677698127549891815995206853756301593324349871567926792912475619794804691721625860861059975526781239293017498</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>N &#x3D; p^2 + q^2 &#x3D; (p+qi) * (p-qi)<br>在复数域上分解N 遍历其因子就能得到p,q<br>一些sage用法说明:</p>
+<ul>
+<li>ZZ(i)[N]: 创建了一个整数高斯环</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">122977267154486898127643454001467185956864368276013342450998567212966113302012584153291519651365278888605594000436279106907163024162771486315220072170917153855370362692990814276908399943293854077912175867886513964032241638851526276</span></span><br><span class="line">N = <span class="number">973990451943921675425625260267293227445098713194663380695161260771362036776671793195525239267004528550439258233703798932349677698127549891815995206853756301593324349871567926792912475619794804691721625860861059975526781239293017498</span></span><br><span class="line">zn = ZZ[i](N)</span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> divisors(zn):</span><br><span class="line">    p, q = <span class="built_in">int</span>(d[<span class="number">0</span>]), <span class="built_in">int</span>(d[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> is_prime(p) <span class="keyword">and</span> is_prime(q) <span class="keyword">and</span> p.bit_length()&gt;<span class="number">300</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;p= <span class="subst">&#123;p&#125;</span>\nq= <span class="subst">&#123;q&#125;</span>&#x27;</span>)</span><br><span class="line">p= <span class="number">8732781022306464325787401448517171026218291389436971731700810979177651389459896422549428444142746055523338740248707</span></span><br><span class="line">q= <span class="number">29962125885196559918101088622575501736433575381042696980660846307183241725227137854663856022170515177120773072848343</span></span><br><span class="line">n = p*q</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> primefac <span class="keyword">import</span> *</span><br><span class="line">d = modinv(<span class="number">65537</span>,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(n2s(<span class="built_in">int</span>(<span class="built_in">pow</span>(c,d,n))))</span><br><span class="line"><span class="comment"># b&#x27;SYC&#123;D0_you_like_r41n?_i_pref3r_R1_ng&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="未知来源"><a href="#未知来源" class="headerlink" title="未知来源"></a>未知来源</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag, totient</span><br><span class="line"><span class="comment"># where totient is a function used to calculate phi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Complex</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, re, im</span>):</span><br><span class="line">        self.re = re</span><br><span class="line">        self.im = im</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__mul__</span>(<span class="params">self, c</span>):</span><br><span class="line">        re_ = self.re * c.re - self.im * c.im</span><br><span class="line">        im_ = self.re * c.im + self.im * c.re</span><br><span class="line">        <span class="keyword">return</span> Complex(re_, im_)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>([self.re, self.im])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">complex_pow</span>(<span class="params">c, exp, n</span>):</span><br><span class="line">    result = Complex(<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> exp &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> exp &amp; <span class="number">1</span>:</span><br><span class="line">            result = result * c</span><br><span class="line">            result.re = result.re % n</span><br><span class="line">            result.im = result.im % n</span><br><span class="line">        c = c * c</span><br><span class="line">        c.re = c.re % n</span><br><span class="line">        c.im = c.im % n</span><br><span class="line">        exp &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pad</span>(<span class="params">msg, length</span>):</span><br><span class="line">    pad_length = length - <span class="built_in">len</span>(msg) - <span class="number">1</span></span><br><span class="line">    pad_data = os.urandom(pad_length)</span><br><span class="line">    <span class="keyword">return</span> msg + <span class="string">b&#x27;\x00&#x27;</span> + pad_data</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">unpad</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="keyword">return</span> msg.split(<span class="string">b&quot;\x00&quot;</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">bits = <span class="number">512</span></span><br><span class="line">p = getPrime(bits)</span><br><span class="line">q = getPrime(bits)</span><br><span class="line">n = p * q</span><br><span class="line"></span><br><span class="line">sha_flag = hashlib.sha256(flag).digest()</span><br><span class="line"></span><br><span class="line">m1 = Complex(</span><br><span class="line">        <span class="built_in">int</span>.from_bytes(sha_flag[:<span class="built_in">len</span>(sha_flag)//<span class="number">2</span>], <span class="string">&quot;big&quot;</span>),</span><br><span class="line">        <span class="built_in">int</span>.from_bytes(sha_flag[<span class="built_in">len</span>(sha_flag)//<span class="number">2</span>:], <span class="string">&quot;big&quot;</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">m2 = Complex(</span><br><span class="line">        <span class="built_in">int</span>.from_bytes(pad(flag[:<span class="built_in">len</span>(flag)//<span class="number">2</span>], bits//<span class="number">4</span>-<span class="number">1</span>), <span class="string">&quot;big&quot;</span>),</span><br><span class="line">        <span class="built_in">int</span>.from_bytes(pad(flag[<span class="built_in">len</span>(flag)//<span class="number">2</span>:], bits//<span class="number">4</span>-<span class="number">1</span>), <span class="string">&quot;big&quot;</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">phi = totient(p, q)</span><br><span class="line">e = q * inverse(p, phi)</span><br><span class="line">c1 = complex_pow(m1, e, n)</span><br><span class="line">c2 = complex_pow(m2, e, n)</span><br><span class="line"></span><br><span class="line">c1.show()</span><br><span class="line">c2.show()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;n = <span class="subst">&#123;n&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[90554536599623574119664951128649936419332926063696768860765928746438458550068553748440108394673303800443215316190882880737918820592384729010491685487061658710808286341751196450604089438847354206384322610922839055308138101241906861635339635907663440043442187064090630207952625897567214431195621589834131462698, 9144096375153318849308858335764188418198064372272913164911615933938183103747900881824918069830188301084043148828961577193063557255905230182831945580084452509300200269659063051152684191139872067872645370760797859584822240361290678189844670289832298393156571913616456958845361092243648857334156534377833472900]</span></span><br><span class="line"><span class="string">[62925714576233017213228404230949787334346543378320798964656732359587152905032848271156799538355748406136742979043729040728123730886381468564779041856310262770766050213464073568850702827835472680885186487027698395099598698463717279017013124488699475168052581476224742146967412904416266652605031934025266540003, 62818668456104375760667670741457826560706388018921820295286033114468271151921637926389738844622672202424650967678199715932465104135980734708459543588178208672956785650944371545080965650112025782049517299538052360417245732776384089052839997333049599655001615752078742624898059780909287845495731050387891926520]</span></span><br><span class="line"><span class="string">n = 94040393367054633265453751757391098049234338193258976478647369399924701067077628840760704857546243644552533845934146003988635403227234096447871132283820920489003286967145732739404245319615714787916756200564828237043658350145929927911058782352154997346295194977765305107634012698472977467843980475009837261877</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里计算p,q的phi是复数域上的计算方式:</p>
+<ul>
+<li>phi(p) &#x3D; p^2 - 1</li>
+<li>phi(q) &#x3D; q^2 - 1</li>
+<li>phi(n) &#x3D; phi(p) * phi(q)</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/12/03/SetLslk9bdAMVp4.png" alt="img"></p>
+<p>要时刻记住phi(x) &#x3D; x^2 - 1</p>
+<p>然后 c1^n - m &#x3D; k1 * q<br>由于m为128bits 完全可以在modn下copper求出m!(更新了cooper的用法 以前只会用来单独求p,q 其实它找的是模n的一个因子的意义下为0的根 完全可以用来解kp,kq的情况)</p>
+<p>这里我们要自己加一个返回实部虚部的函数 不然返回的是一个Complex对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Complex</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, re, im</span>):</span><br><span class="line">        self.re = re</span><br><span class="line">        self.im = im</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__mul__</span>(<span class="params">self, c</span>):</span><br><span class="line">        re_ = self.re * c.re - self.im * c.im</span><br><span class="line">        im_ = self.re * c.im + self.im * c.re</span><br><span class="line">        <span class="keyword">return</span> Complex(re_, im_)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>([self.re, self.im])</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_value</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.re,self.im</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">complex_pow</span>(<span class="params">c, exp, n</span>):</span><br><span class="line">    result = Complex(<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> exp &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> exp &amp; <span class="number">1</span>:</span><br><span class="line">            result = result * c</span><br><span class="line">            result.re = result.re % n</span><br><span class="line">            result.im = result.im % n</span><br><span class="line">        c = c * c</span><br><span class="line">        c.re = c.re % n</span><br><span class="line">        c.im = c.im % n</span><br><span class="line">        exp &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">c1 = [<span class="number">90554536599623574119664951128649936419332926063696768860765928746438458550068553748440108394673303800443215316190882880737918820592384729010491685487061658710808286341751196450604089438847354206384322610922839055308138101241906861635339635907663440043442187064090630207952625897567214431195621589834131462698</span>, <span class="number">9144096375153318849308858335764188418198064372272913164911615933938183103747900881824918069830188301084043148828961577193063557255905230182831945580084452509300200269659063051152684191139872067872645370760797859584822240361290678189844670289832298393156571913616456958845361092243648857334156534377833472900</span>]</span><br><span class="line">c2 = [<span class="number">62925714576233017213228404230949787334346543378320798964656732359587152905032848271156799538355748406136742979043729040728123730886381468564779041856310262770766050213464073568850702827835472680885186487027698395099598698463717279017013124488699475168052581476224742146967412904416266652605031934025266540003</span>, <span class="number">62818668456104375760667670741457826560706388018921820295286033114468271151921637926389738844622672202424650967678199715932465104135980734708459543588178208672956785650944371545080965650112025782049517299538052360417245732776384089052839997333049599655001615752078742624898059780909287845495731050387891926520</span>]</span><br><span class="line">n = <span class="number">94040393367054633265453751757391098049234338193258976478647369399924701067077628840760704857546243644552533845934146003988635403227234096447871132283820920489003286967145732739404245319615714787916756200564828237043658350145929927911058782352154997346295194977765305107634012698472977467843980475009837261877</span></span><br><span class="line"></span><br><span class="line">c1 = Complex(c1[<span class="number">0</span>],c1[<span class="number">1</span>])</span><br><span class="line">c2 = Complex(c2[<span class="number">0</span>],c2[<span class="number">1</span>])</span><br><span class="line">c1n = complex_pow(c1,n,n).get_value()</span><br><span class="line"></span><br><span class="line"><span class="comment"># PR.&lt;m1&gt; = PolynomialRing(Zmod(n))</span></span><br><span class="line"><span class="comment"># f = c1n - m1</span></span><br><span class="line"><span class="comment"># f = f.monic()</span></span><br><span class="line"><span class="comment"># m_1 = f.small_roots(X=2^128,beta=0.4)[0]</span></span><br><span class="line"><span class="comment"># q = gcd(c1n-m_1,n)</span></span><br><span class="line"><span class="comment"># p = n//q</span></span><br><span class="line"><span class="comment"># assert p*q == n</span></span><br><span class="line"><span class="comment"># print(f&#x27;p= &#123;p&#125;\nq= &#123;q&#125;&#x27;)</span></span><br><span class="line">q = <span class="number">7323077971059291689707065981399299595305255699400528762823657455799263529156562060157257164843406722707105788120169666250562251092133204672454047510142903</span></span><br><span class="line">p = <span class="number">12841648517017166445551091061211185386388830485650207877732791165106786665791893519935905079260599145467726270747052676462914579177741552378246815211750259</span></span><br><span class="line">phi = (p**<span class="number">2</span>-<span class="number">1</span>)*(q**<span class="number">2</span>-<span class="number">1</span>)</span><br><span class="line"><span class="keyword">from</span> primefac <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> *</span><br><span class="line">e = modinv(p,phi)*q%phi</span><br><span class="line">d = modinv(e,phi)</span><br><span class="line">m = complex_pow(c2,d,n).get_value()</span><br><span class="line"><span class="built_in">print</span>(n2s(<span class="built_in">int</span>(m[<span class="number">0</span>])),n2s(<span class="built_in">int</span>(m[<span class="number">1</span>])))</span><br></pre></td></tr></table></figure>
+<p>最后<strong>flag</strong>: flag{3ef6db06-b837-11ed-9825-00155dfcdef9}</p>
+<p>总结一下:<br>关键知识点: 复数域下phi的不同<br>与常规RSA的结合: 都有 de&#x3D;kphi+1 都有coopersmith等攻击方法<br>通过这道题学习到复数RSA的同时 还更新了cooper求kp,kq！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>U-L-G-A-N-O-Y
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://u-l-g-a-n-o-y.github.io/2023/12/03/Complex-RSA/" title="Complex RSA">http://u-l-g-a-n-o-y.github.io/2023/12/03/Complex-RSA/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/03/2023%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-Crpyto/" rel="prev" title="2023极客大挑战 Crpyto">
+      <i class="fa fa-chevron-left"></i> 2023极客大挑战 Crpyto
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0%E5%9F%9F%E4%B8%8A%E7%9A%84rsa-demo"><span class="nav-number">1.</span> <span class="nav-text">复数域上的rsa demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2023%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-EzComplex"><span class="nav-number">2.1.</span> <span class="nav-text">2023极客大挑战-EzComplex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E7%9F%A5%E6%9D%A5%E6%BA%90"><span class="nav-number">2.2.</span> <span class="nav-text">未知来源</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="U-L-G-A-N-O-Y"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">U-L-G-A-N-O-Y</p>
+  <div class="site-description" itemprop="description">Kitauji Fightooooo!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">U-L-G-A-N-O-Y</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">5k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"superSample":2,"position":"right","width":180,"height":288,"hOffset":110,"vOffset":-30},"mobile":{"show":true}});</script></body>
+</html>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

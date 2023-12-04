@@ -30,7 +30,7 @@
 <meta property="og:description" content="记载CTFshow上的web题目(少数能复现 大多都只能看WP&#x2F;视频 来积累思路)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T13:01:37.000Z">
-<meta property="article:modified_time" content="2023-12-04T14:20:28.291Z">
+<meta property="article:modified_time" content="2023-12-04T14:42:23.236Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 
@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-04 21:01:37 / 修改时间：22:20:28" itemprop="dateCreated datePublished" datetime="2023-12-04T21:01:37+08:00">2023-12-04</time>
+              <time title="创建时间：2023-12-04 21:01:37 / 修改时间：22:42:23" itemprop="dateCreated datePublished" datetime="2023-12-04T21:01:37+08:00">2023-12-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,8 +281,9 @@
 <h2 id="敏感信息公布"><a href="#敏感信息公布" class="headerlink" title="敏感信息公布"></a>敏感信息公布</h2><p>哇 很有趣的题~<br>利用题目提示 在下面heapline找到 372619038 猜测这是密码<br>但是找了半天找不到哪里用得上<br>看提示 说返回 &#x2F;admin ! 学到了 然后以 admin 372619038 登录即可得到flag~</p>
 <h2 id="内部技术文档泄露"><a href="#内部技术文档泄露" class="headerlink" title="内部技术文档泄露"></a>内部技术文档泄露</h2><p>这 属实想不到 orz<br>Home最下面会发现document可以点！ 然后就能下载得到pdf…<br>里面<del>贴心的</del>记录了登录路径&#x2F;用户名&#x2F;密码…<br>跟着访问即可得到flag</p>
 <h2 id="编辑器配置不当"><a href="#编辑器配置不当" class="headerlink" title="编辑器配置不当"></a>编辑器配置不当</h2><p>az 访问 &#x2F;editor (…)<br>进入里面 找到图片上传 发现可以访问文件空间 能看到网站的所有信息<br>然后在 &#x2F;var&#x2F;www&#x2F;nothinghere下找到flag地址 访问&#x2F;nothinghere&#x2F;flag…txt即可<br>&#x2F;var&#x2F;www下放置的是站点配置 所以用后面地址才能访问</p>
-<h2 id="密码逻辑脆弱"><a href="#密码逻辑脆弱" class="headerlink" title="密码逻辑脆弱"></a>密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯~ <a href="mailto:&#49;&#x31;&#53;&#x36;&#54;&#51;&#x31;&#57;&#x36;&#49;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;">&#49;&#x31;&#53;&#x36;&#54;&#51;&#x31;&#57;&#x36;&#49;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;</a> (敲响警钟！ 自己网站也要注意<del>)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安</del> 就行了 orz<br>密码被重置为 admin7789</p>
-<h2 id="探针泄露"><a href="#探针泄露" class="headerlink" title="探针泄露"></a>探针泄露</h2><p>你别说这网站还挺炫的 orz<br>?? 什么是探针??? <a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82">https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82</a></p>
+<h2 id="密码逻辑脆弱"><a href="#密码逻辑脆弱" class="headerlink" title="密码逻辑脆弱"></a>密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯 <a href="mailto:&#49;&#x31;&#x35;&#54;&#x36;&#x33;&#x31;&#57;&#x36;&#49;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#49;&#x31;&#x35;&#54;&#x36;&#x33;&#x31;&#57;&#x36;&#49;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;</a> (敲响警钟！ 自己网站也要注意！)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安 就行了 orz<br>密码被重置为 admin7789</p>
+<h2 id="探针泄露"><a href="#探针泄露" class="headerlink" title="探针泄露"></a>探针泄露</h2><p>你别说这网站还挺炫的 orz<br>?? 什么是探针??? </p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82">https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82</a></p>
 <p>但是这道题 访问 &#x2F;tz.php<br>发现phpinfo()可以点击查看(也符合上面链接的介绍)<br>搜索flag即得</p>
 <h2 id="CDN穿透"><a href="#CDN穿透" class="headerlink" title="CDN穿透"></a>CDN穿透</h2><p>透过重重缓存，查找到ctfer.com的真实IP<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qiudabai/p/9763739.html">https://www.cnblogs.com/qiudabai/p/9763739.html</a><br>这里直接ping即可 (做题归做题 还是要多学点相关知识)<br>但是貌似现在的ip变了… 比如我Ping&#x2F;查询 都得到的是 124.222.110.176 …</p>
 <h2 id="js敏感信息泄露"><a href="#js敏感信息泄露" class="headerlink" title="js敏感信息泄露"></a>js敏感信息泄露</h2><p>一个小游戏界面 查看源码 发现score&gt;101会弹出 <code>\u4f60\u8d62\u4e86\uff0c\u53bb\u5e7a\u5e7a\u96f6\u70b9\u76ae\u7231\u5403\u76ae\u770b\u770b</code><br>解码: 你赢了，去幺幺零点皮爱吃皮看看<br>屮 皮爱吃皮是’php’的意思 … (想想也是 通关后肯定弹出一个php界面~)<br>行吧 访问 110.php即可</p>

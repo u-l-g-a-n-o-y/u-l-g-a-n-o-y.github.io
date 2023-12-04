@@ -30,7 +30,7 @@
 <meta property="og:description" content="记载CTFshow上的web题目(少数能复现 大多都只能看WP&#x2F;视频 来积累思路)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T13:01:37.000Z">
-<meta property="article:modified_time" content="2023-12-04T14:42:23.236Z">
+<meta property="article:modified_time" content="2023-12-04T15:31:53.635Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 
@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-04 21:01:37 / 修改时间：22:42:23" itemprop="dateCreated datePublished" datetime="2023-12-04T21:01:37+08:00">2023-12-04</time>
+              <time title="创建时间：2023-12-04 21:01:37 / 修改时间：23:31:53" itemprop="dateCreated datePublished" datetime="2023-12-04T21:01:37+08:00">2023-12-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -281,7 +281,7 @@
 <h2 id="敏感信息公布"><a href="#敏感信息公布" class="headerlink" title="敏感信息公布"></a>敏感信息公布</h2><p>哇 很有趣的题~<br>利用题目提示 在下面heapline找到 372619038 猜测这是密码<br>但是找了半天找不到哪里用得上<br>看提示 说返回 &#x2F;admin ! 学到了 然后以 admin 372619038 登录即可得到flag~</p>
 <h2 id="内部技术文档泄露"><a href="#内部技术文档泄露" class="headerlink" title="内部技术文档泄露"></a>内部技术文档泄露</h2><p>这 属实想不到 orz<br>Home最下面会发现document可以点！ 然后就能下载得到pdf…<br>里面<del>贴心的</del>记录了登录路径&#x2F;用户名&#x2F;密码…<br>跟着访问即可得到flag</p>
 <h2 id="编辑器配置不当"><a href="#编辑器配置不当" class="headerlink" title="编辑器配置不当"></a>编辑器配置不当</h2><p>az 访问 &#x2F;editor (…)<br>进入里面 找到图片上传 发现可以访问文件空间 能看到网站的所有信息<br>然后在 &#x2F;var&#x2F;www&#x2F;nothinghere下找到flag地址 访问&#x2F;nothinghere&#x2F;flag…txt即可<br>&#x2F;var&#x2F;www下放置的是站点配置 所以用后面地址才能访问</p>
-<h2 id="密码逻辑脆弱"><a href="#密码逻辑脆弱" class="headerlink" title="密码逻辑脆弱"></a>密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯 <a href="mailto:&#49;&#x31;&#x35;&#54;&#x36;&#x33;&#x31;&#57;&#x36;&#49;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#49;&#x31;&#x35;&#54;&#x36;&#x33;&#x31;&#57;&#x36;&#49;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;</a> (敲响警钟！ 自己网站也要注意！)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安 就行了 orz<br>密码被重置为 admin7789</p>
+<h2 id="密码逻辑脆弱"><a href="#密码逻辑脆弱" class="headerlink" title="密码逻辑脆弱"></a>密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯 <a href="mailto:&#49;&#x31;&#53;&#x36;&#54;&#51;&#x31;&#x39;&#54;&#x31;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;">&#49;&#x31;&#53;&#x36;&#54;&#51;&#x31;&#x39;&#54;&#x31;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a> (敲响警钟！ 自己网站也要注意！)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安 就行了 orz<br>密码被重置为 admin7789</p>
 <h2 id="探针泄露"><a href="#探针泄露" class="headerlink" title="探针泄露"></a>探针泄露</h2><p>你别说这网站还挺炫的 orz<br>?? 什么是探针??? </p>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82">https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82</a></p>
 <p>但是这道题 访问 &#x2F;tz.php<br>发现phpinfo()可以点击查看(也符合上面链接的介绍)<br>搜索flag即得</p>
@@ -292,6 +292,12 @@
 <hr>
 <hr>
 <p>总结: 这些细枝末节的考点有时候真的会成为关键！ 当源码找不到思路 尝试许久无果时 试试找泄露！</p>
+<h1 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h1><p>这部分没环境爆个鬼🤣</p>
+<h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><h2 id="web29"><a href="#web29" class="headerlink" title="web29"></a>web29</h2><p>只过滤了’flag’ 所以可以用?,* 来匹配<br>视频有个很秀的做法 <code>system(&quot;cp flag.php 1.txt&quot;)</code> 然后直接访问 &#x2F;1.txt !</p>
+<h2 id="web30"><a href="#web30" class="headerlink" title="web30"></a>web30</h2><p>过滤了 flag system php<br>用上面的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`cp fla?.??? <span class="number">1.</span>txt`</span><br></pre></td></tr></table></figure>
+<p>然后访问 &#x2F;1.txt</p>
+<h2 id="web31"><a href="#web31" class="headerlink" title="web31"></a>web31</h2><p>过滤了 flag system php cat sort shell 点 空格 单引号<br>视频这样执行:  <code>/?c=eval($_GET[1]);&amp;1=phpinfo()</code><br>这里是参数逃逸(跳板) 学到了 orz<br>这样的话 &amp;1&#x3D;后面就可以传任意值了(脱离了参数c的约束 所以不会被匹配到)<br>这样 <code>cat flag.php</code>需要在源代码中查看<br>而视频又给了一种做法 <code>tac flag.php</code> cat反过来写 就可以直接看到了</p>
 
     </div>
 
@@ -391,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E6%A8%A1%E5%9D%97"><span class="nav-text">信息搜集模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-text">源码泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%8F%B0JS%E7%BB%95%E8%BF%87"><span class="nav-text">前台JS绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%A4%B4%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="nav-text">协议头信息泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#robots%E5%90%8E%E5%8F%B0%E6%B3%84%E9%9C%B2"><span class="nav-text">robots后台泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phps%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-text">phps源码泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%B3%84%E9%9C%B2"><span class="nav-text">源码压缩包泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B3%84%E9%9C%B2%E6%BA%90%E7%A0%81"><span class="nav-text">版本控制泄露源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B3%84%E9%9C%B2%E6%BA%90%E7%A0%812"><span class="nav-text">版本控制泄露源码2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-text">vim临时文件泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie%E6%B3%84%E9%9C%B2"><span class="nav-text">cookie泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%90%8Dtxt%E8%AE%B0%E5%BD%95%E6%B3%84%E9%9C%B2"><span class="nav-text">域名txt记录泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%85%AC%E5%B8%83"><span class="nav-text">敏感信息公布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E6%B3%84%E9%9C%B2"><span class="nav-text">内部技术文档泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93"><span class="nav-text">编辑器配置不当</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E9%80%BB%E8%BE%91%E8%84%86%E5%BC%B1"><span class="nav-text">密码逻辑脆弱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E9%92%88%E6%B3%84%E9%9C%B2"><span class="nav-text">探针泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN%E7%A9%BF%E9%80%8F"><span class="nav-text">CDN穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="nav-text">js敏感信息泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E5%AF%86%E9%92%A5%E6%B3%84%E9%9C%B2"><span class="nav-text">前端密钥泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%B6%E6%84%8F%E4%B8%8B%E8%BD%BD"><span class="nav-text">数据库恶意下载</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E6%A8%A1%E5%9D%97"><span class="nav-text">信息搜集模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-text">源码泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%8F%B0JS%E7%BB%95%E8%BF%87"><span class="nav-text">前台JS绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%A4%B4%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="nav-text">协议头信息泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#robots%E5%90%8E%E5%8F%B0%E6%B3%84%E9%9C%B2"><span class="nav-text">robots后台泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phps%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="nav-text">phps源码泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%B3%84%E9%9C%B2"><span class="nav-text">源码压缩包泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B3%84%E9%9C%B2%E6%BA%90%E7%A0%81"><span class="nav-text">版本控制泄露源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B3%84%E9%9C%B2%E6%BA%90%E7%A0%812"><span class="nav-text">版本控制泄露源码2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="nav-text">vim临时文件泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie%E6%B3%84%E9%9C%B2"><span class="nav-text">cookie泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%90%8Dtxt%E8%AE%B0%E5%BD%95%E6%B3%84%E9%9C%B2"><span class="nav-text">域名txt记录泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%85%AC%E5%B8%83"><span class="nav-text">敏感信息公布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E6%B3%84%E9%9C%B2"><span class="nav-text">内部技术文档泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93"><span class="nav-text">编辑器配置不当</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E9%80%BB%E8%BE%91%E8%84%86%E5%BC%B1"><span class="nav-text">密码逻辑脆弱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E9%92%88%E6%B3%84%E9%9C%B2"><span class="nav-text">探针泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN%E7%A9%BF%E9%80%8F"><span class="nav-text">CDN穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="nav-text">js敏感信息泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E5%AF%86%E9%92%A5%E6%B3%84%E9%9C%B2"><span class="nav-text">前端密钥泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%B6%E6%84%8F%E4%B8%8B%E8%BD%BD"><span class="nav-text">数据库恶意下载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%86%E7%A0%B4"><span class="nav-text">爆破</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-text">命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web29"><span class="nav-text">web29</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web30"><span class="nav-text">web30</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web31"><span class="nav-text">web31</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -459,7 +465,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">27 分钟</span>
+    <span title="站点阅读时长">28 分钟</span>
 </div>
 
         

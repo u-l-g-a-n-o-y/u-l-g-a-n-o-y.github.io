@@ -30,7 +30,7 @@
 <meta property="og:description" content="一些杂题(密码)&#x2F; (以前)比赛的密码题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T05:01:10.000Z">
-<meta property="article:modified_time" content="2023-12-05T10:59:45.921Z">
+<meta property="article:modified_time" content="2023-12-05T11:07:36.111Z">
 <meta property="article:author" content="U-L-G-A-N-O-Y">
 <meta name="twitter:card" content="summary">
 
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-05 18:59:45" itemprop="dateModified" datetime="2023-12-05T18:59:45+08:00">2023-12-05</time>
+                <time title="修改时间：2023-12-05 19:07:36" itemprop="dateModified" datetime="2023-12-05T19:07:36+08:00">2023-12-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,9 +272,9 @@
 
 <h1 id="tsgctf2020"><a href="#tsgctf2020" class="headerlink" title="tsgctf2020"></a>tsgctf2020</h1><h2 id="beginners-crypto"><a href="#beginners-crypto" class="headerlink" title="beginners_crypto"></a>beginners_crypto</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span>(<span class="built_in">len</span>(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read()) &lt;= <span class="number">50</span>)</span><br><span class="line"><span class="keyword">assert</span>(<span class="built_in">str</span>(<span class="built_in">int</span>.from_bytes(<span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read(), byteorder=<span class="string">&#x27;big&#x27;</span>) &lt;&lt; <span class="number">10000</span>).endswith(<span class="string">&#x27;1002773875431658367671665822006771085816631054109509173556585546508965236428620487083647585179992085437922318783218149808537210712780660412301729655917441546549321914516504576&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>搁着开始没搞懂题目意思…<br>这其实就等价于 给出 <code>m*2**10000 = s (mod 10**175)</code>…<br>由于不互素 不能直接将逆元乘过去<br>两种方法:</p>
-<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><p>观察他们的gcd发现可以全部除掉</p>
+<h3 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h3><p>观察他们的gcd发现可以全部除掉</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x =  (<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">10000</span>,<span class="number">10</span>**<span class="number">175</span>))</span><br><span class="line">n = <span class="number">10</span>**<span class="number">175</span></span><br><span class="line"><span class="built_in">print</span>(gcd(x,n))</span><br><span class="line"><span class="built_in">print</span>(gcd(s,n))</span><br><span class="line">GCD = gcd(s,n)</span><br><span class="line">s //= GCD</span><br><span class="line">x //= GCD</span><br><span class="line">n //= GCD</span><br><span class="line"><span class="keyword">from</span> primefac <span class="keyword">import</span> *</span><br><span class="line">m = modinv(x,n)*s%n</span><br><span class="line"><span class="built_in">print</span>(n2s(<span class="built_in">int</span>(m)))</span><br></pre></td></tr></table></figure>
-<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><p>可以改变模数 比如<code>10**175 -&gt; 5**175</code>这种<br>也就是选择新模数为原来模数的因子 且满足大于m的比特数即可</p>
+<h3 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h3><p>可以改变模数 比如<code>10**175 -&gt; 5**175</code>这种<br>也就是选择新模数为原来模数的因子 且满足大于m的比特数即可</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">5</span>**<span class="number">175</span></span><br><span class="line"><span class="keyword">from</span> primefac <span class="keyword">import</span> *</span><br><span class="line">m = modinv(<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">10000</span>,n),n)*s%n</span><br><span class="line"><span class="built_in">print</span>(n2s(<span class="built_in">int</span>(m)))</span><br></pre></td></tr></table></figure>
 <p>flag: TSGCTF{0K4y_Y0U_are_r3aDy_t0_Go_aNd_dO_M0r3_CryPt}</p>
 <h2 id="modulus-amittendus"><a href="#modulus-amittendus" class="headerlink" title="modulus_amittendus"></a>modulus_amittendus</h2><p>题目给的是rugby代码</p>
@@ -388,7 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tsgctf2020"><span class="nav-text">tsgctf2020</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beginners-crypto"><span class="nav-text">beginners_crypto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution1"><span class="nav-text">Solution1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution2"><span class="nav-text">Solution2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modulus-amittendus"><span class="nav-text">modulus_amittendus</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HITCON2019"><span class="nav-text">HITCON2019</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lost-Modulus-Again"><span class="nav-text">Lost_Modulus_Again</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tsgctf2020"><span class="nav-text">tsgctf2020</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beginners-crypto"><span class="nav-text">beginners_crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution1"><span class="nav-text">Solution1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution2"><span class="nav-text">Solution2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modulus-amittendus"><span class="nav-text">modulus_amittendus</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HITCON2019"><span class="nav-text">HITCON2019</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lost-Modulus-Again"><span class="nav-text">Lost_Modulus_Again</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

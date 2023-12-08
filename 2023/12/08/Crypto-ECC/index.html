@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-radar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"u-l-g-a-n-o-y.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"expandIn","post_header":"slideDownIn","post_body":"expandIn","coll_header":"slideLeftIn","sidebar":"expandIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="学习ECC知识点以及相关题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crypto-ECC">
+<meta property="og:url" content="http://u-l-g-a-n-o-y.github.io/2023/12/08/Crypto-ECC/index.html">
+<meta property="og:site_name" content="ULGANOY">
+<meta property="og:description" content="学习ECC知识点以及相关题目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/08/gTdyjkJezQV8IhM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/08/miK8AzOIstlZ3xa.png">
+<meta property="article:published_time" content="2023-12-08T10:14:37.000Z">
+<meta property="article:modified_time" content="2023-12-08T12:25:05.437Z">
+<meta property="article:author" content="U-L-G-A-N-O-Y">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/08/gTdyjkJezQV8IhM.png">
+
+<link rel="canonical" href="http://u-l-g-a-n-o-y.github.io/2023/12/08/Crypto-ECC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Crypto-ECC | ULGANOY</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ULGANOY</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Kitauji Fightooooo!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://u-l-g-a-n-o-y.github.io/2023/12/08/Crypto-ECC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="U-L-G-A-N-O-Y">
+      <meta itemprop="description" content="Laus Deo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ULGANOY">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crypto-ECC
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-08 18:14:37 / 修改时间：20:25:05" itemprop="dateCreated datePublished" datetime="2023-12-08T18:14:37+08:00">2023-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF-Crypto/" itemprop="url" rel="index"><span itemprop="name">CTF-Crypto</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>917</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>学习ECC知识点以及相关题目</p>
+<span id="more"></span>
+<p>以前断断续续看过ECC 学的很不扎实 一些算法也没理解原理 现在有一定群论基础后再来学一遍</p>
+<h1 id="相关知识点-定义"><a href="#相关知识点-定义" class="headerlink" title="相关知识点&#x2F;定义"></a>相关知识点&#x2F;定义</h1><h2 id="椭圆曲线"><a href="#椭圆曲线" class="headerlink" title="椭圆曲线"></a>椭圆曲线</h2><p>ECC里面只考虑 <code>Ep : y^2 === x^3 + a*x + b mod p</code> 形式</p>
+<ul>
+<li>Δ &#x3D; -16(4*a^3+27b)≠0 保证曲线光滑</li>
+<li>a,b ∈ K K为E的基础域</li>
+<li>点O∞是曲线的唯一无穷远点</li>
+</ul>
+<h2 id="椭圆曲线上的加法"><a href="#椭圆曲线上的加法" class="headerlink" title="椭圆曲线上的加法"></a>椭圆曲线上的加法</h2><p>借佬图：<br><img src="https://s2.loli.net/2023/12/08/gTdyjkJezQV8IhM.png" alt="img"></p>
+<p>要熟练掌握公式 好多题目都可以用加法公式转成代数方程来解</p>
+<h2 id="What-is-ECC"><a href="#What-is-ECC" class="headerlink" title="What is ECC?"></a>What is ECC?</h2><p><img src="https://s2.loli.net/2023/12/08/miK8AzOIstlZ3xa.png" alt="img"></p>
+<h2 id="Sage相关函数实现"><a href="#Sage相关函数实现" class="headerlink" title="Sage相关函数实现"></a>Sage相关函数实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">E = EllipticCurve(GF(p),[a,b]) <span class="comment"># y^2 === x^3 + a*x + b mod p</span></span><br><span class="line"></span><br><span class="line">E.random_point() <span class="comment"># 在椭圆曲线E上随机选一点</span></span><br><span class="line"></span><br><span class="line">E.set_order() <span class="comment"># 设置椭圆曲线的阶</span></span><br><span class="line"></span><br><span class="line">E.point((x,y)) <span class="comment"># 创建一个曲线上的点对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 求解私钥 k K = k*G</span></span><br><span class="line"><span class="comment"># 自动选择 BSGS 或者 Pohlig-Hellman算法</span></span><br><span class="line">discrete_log(K,G,operation=<span class="string">&#x27;+&#x27;</span>)</span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">G.discrete_log(K)</span><br><span class="line"></span><br><span class="line">E.order() <span class="comment"># 计算椭圆曲线上点的阶</span></span><br><span class="line"><span class="built_in">print</span>(factor(E.order()))</span><br><span class="line"><span class="comment"># 2 * 3^3 * 5 * 7 * 212117 * 302426983 * 10362951863095936421891634612647340060175499</span></span><br><span class="line"><span class="built_in">print</span>(*factor(E.order()))</span><br><span class="line"><span class="comment">#(2, 1) (3, 3) (5, 1) (7, 1) (212117, 1) (302426983, 1) (10362951863095936421891634612647340060175499, 1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用Pollard rho算法求解私钥</span></span><br><span class="line">discrete_log_rho(K,G,operation=<span class="string">&#x27;+&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用Pollard Lambda算法求解私钥，能够确定所求值在某一小范围时效率较高</span></span><br><span class="line">discrete_log_lambda(K,G,bound,operation=<span class="string">&#x27;+&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p>通过例题来熟悉这些概念和方法吧</p>
+<h2 id="2022巅峰极客-point-power"><a href="#2022巅峰极客-point-power" class="headerlink" title="2022巅峰极客 point-power"></a>2022巅峰极客 point-power</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> secrets <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> <span class="built_in">len</span>(flag)==<span class="number">42</span></span><br><span class="line">p=getPrime(<span class="number">600</span>)</span><br><span class="line">a=bytes_to_long(flag)</span><br><span class="line">b=randrange(<span class="number">2</span>,p-<span class="number">1</span>)</span><br><span class="line">E=EllipticCurve(GF(p),[a,b])</span><br><span class="line">G=E.random_element()</span><br><span class="line"></span><br><span class="line">x1,y1,_=G</span><br><span class="line">G=<span class="number">2</span>*G</span><br><span class="line">x2,y2,_=G</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;p = <span class="subst">&#123;p&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;b = <span class="subst">&#123;b&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;x1 = <span class="subst">&#123;x1&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;x2 = <span class="subst">&#123;x2&#125;</span>&quot;</span>)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">p = 3660057339895840489386133099442699911046732928957592389841707990239494988668972633881890332850396642253648817739844121432749159024098337289268574006090698602263783482687565322890623</span></span><br><span class="line"><span class="string">b = 1515231655397326550194746635613443276271228200149130229724363232017068662367771757907474495021697632810542820366098372870766155947779533427141016826904160784021630942035315049381147</span></span><br><span class="line"><span class="string">x1 = 2157670468952062330453195482606118809236127827872293893648601570707609637499023981195730090033076249237356704253400517059411180554022652893726903447990650895219926989469443306189740</span></span><br><span class="line"><span class="string">x2 = 1991876990606943816638852425122739062927245775025232944491452039354255349384430261036766896859410449488871048192397922549895939187691682643754284061389348874990018070631239671589727</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里可以直接用加法公式<br>写出来消元得到只含x1的方程 sage解就行了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">p = <span class="number">3660057339895840489386133099442699911046732928957592389841707990239494988668972633881890332850396642253648817739844121432749159024098337289268574006090698602263783482687565322890623</span></span><br><span class="line">b = <span class="number">1515231655397326550194746635613443276271228200149130229724363232017068662367771757907474495021697632810542820366098372870766155947779533427141016826904160784021630942035315049381147</span></span><br><span class="line">x1 = <span class="number">2157670468952062330453195482606118809236127827872293893648601570707609637499023981195730090033076249237356704253400517059411180554022652893726903447990650895219926989469443306189740</span></span><br><span class="line">x2 = <span class="number">1991876990606943816638852425122739062927245775025232944491452039354255349384430261036766896859410449488871048192397922549895939187691682643754284061389348874990018070631239671589727</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PR.&lt;a&gt; = PolynomialRing(Zmod(p))</span></span><br><span class="line"><span class="comment"># f = (3*x1**2+a)^2-4*(x1^3+a*x1+b)*(2*x1+x2)</span></span><br><span class="line"><span class="comment"># f = f.monic()</span></span><br><span class="line"><span class="comment"># print(f.roots())</span></span><br><span class="line"></span><br><span class="line">[(<span class="number">918875439627055594259552478508551728381826199399685938622511660790511287097297184191298481453657480331998130281110691444641445094194011219176724349745237973925436007792522611119050</span>, <span class="number">1</span>), (<span class="number">56006392793430010663016642098239513811260175999551893260401436587175373756825079518464264729364083325</span>, <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">flags = [<span class="number">918875439627055594259552478508551728381826199399685938622511660790511287097297184191298481453657480331998130281110691444641445094194011219176724349745237973925436007792522611119050</span>,<span class="number">56006392793430010663016642098239513811260175999551893260401436587175373756825079518464264729364083325</span>]</span><br><span class="line"><span class="keyword">for</span> flag <span class="keyword">in</span> flags:</span><br><span class="line">    <span class="built_in">print</span>(long_to_bytes(flag))</span><br><span class="line"><span class="comment"># b&#x27;flag&#123;fa76cfb1-0052-4416-914d-91517bcebd52&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="watevrCTF2019-ECC-RSA"><a href="#watevrCTF2019-ECC-RSA" class="headerlink" title="watevrCTF2019 ECC-RSA"></a>watevrCTF2019 ECC-RSA</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastecdsa.curve <span class="keyword">import</span> P521 <span class="keyword">as</span> Curve</span><br><span class="line"><span class="keyword">from</span> fastecdsa.point <span class="keyword">import</span> Point</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long, isPrime</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> urandom</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> getrandbits</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gen_rsa_primes</span>(<span class="params">G</span>):</span><br><span class="line">	urand = bytes_to_long(urandom(<span class="number">521</span>//<span class="number">8</span>))</span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		s = getrandbits(<span class="number">521</span>) ^ urand</span><br><span class="line"></span><br><span class="line">		Q = s*G</span><br><span class="line">		<span class="keyword">if</span> isPrime(Q.x) <span class="keyword">and</span> isPrime(Q.y):</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;ECC Private key:&quot;</span>, <span class="built_in">hex</span>(s))</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;RSA primes:&quot;</span>, <span class="built_in">hex</span>(Q.x), <span class="built_in">hex</span>(Q.y))</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;Modulo:&quot;</span>, <span class="built_in">hex</span>(Q.x * Q.y))</span><br><span class="line">			<span class="keyword">return</span> (Q.x, Q.y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flag = <span class="built_in">int</span>.from_bytes(<span class="built_in">input</span>(), byteorder=<span class="string">&quot;big&quot;</span>)</span><br><span class="line"></span><br><span class="line">ecc_p = Curve.p</span><br><span class="line">a = Curve.a</span><br><span class="line">b = Curve.b</span><br><span class="line"></span><br><span class="line">Gx = Curve.gx</span><br><span class="line">Gy = Curve.gy</span><br><span class="line">G = Point(Gx, Gy, curve=Curve)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">p, q = gen_rsa_primes(G)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file_out = <span class="built_in">open</span>(<span class="string">&quot;downloads/ecc-rsa.txt&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line"></span><br><span class="line">file_out.write(<span class="string">&quot;ECC Curve Prime: &quot;</span> + <span class="built_in">hex</span>(ecc_p) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Curve a: &quot;</span> + <span class="built_in">hex</span>(a) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Curve b: &quot;</span> + <span class="built_in">hex</span>(b) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Gx: &quot;</span> + <span class="built_in">hex</span>(Gx) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;Gy: &quot;</span> + <span class="built_in">hex</span>(Gy) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">file_out.write(<span class="string">&quot;e: &quot;</span> + <span class="built_in">hex</span>(e) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">file_out.write(<span class="string">&quot;p * q: &quot;</span> + <span class="built_in">hex</span>(n) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">c = <span class="built_in">pow</span>(flag, e, n)</span><br><span class="line">file_out.write(<span class="string">&quot;ciphertext: &quot;</span> + <span class="built_in">hex</span>(c) + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ECC Curve Prime: 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span><br><span class="line">Curve a: -0x3</span><br><span class="line">Curve b: 0x51953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00</span><br><span class="line">Gx: 0xc6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66</span><br><span class="line">Gy: 0x11839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650</span><br><span class="line">e: 0x10001</span><br><span class="line">p * q: 0x118aaa1add80bdd0a1788b375e6b04426c50bb3f9cae0b173b382e3723fc858ce7932fb499cd92f5f675d4a2b05d2c575fc685f6cf08a490d6c6a8a6741e8be4572adfcba233da791ccc0aee033677b72788d57004a776909f6d699a0164af514728431b5aed704b289719f09d591f5c1f9d2ed36a58448a9d57567bd232702e9b28f</span><br><span class="line">ciphertext: 0x3862c872480bdd067c0c68cfee4527a063166620c97cca4c99baff6eb0cf5d42421b8f8d8300df5f8c7663adb5d21b47c8cb4ca5aab892006d7d44a1c5b5f5242d88c6e325064adf9b969c7dfc52a034495fe67b5424e1678ca4332d59225855b7a9cb42db2b1db95a90ab6834395397e305078c5baff78c4b7252d7966365afed9e</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>利用 <code>n = Q.x*Q.y</code><br>且(Q.x,Q.y)在曲线上来联立求解<br>这里我们构造 <code>(Q.x*Q.y)^2-n^2===0 mod P</code> 来求解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">P = <span class="number">0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span></span><br><span class="line">a = -<span class="number">0x3</span></span><br><span class="line">b = <span class="number">0x51953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00</span></span><br><span class="line">Gx = <span class="number">0xc6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66</span></span><br><span class="line">Gy = <span class="number">0x11839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650</span></span><br><span class="line">e = <span class="number">0x10001</span></span><br><span class="line">n = <span class="number">0x118aaa1add80bdd0a1788b375e6b04426c50bb3f9cae0b173b382e3723fc858ce7932fb499cd92f5f675d4a2b05d2c575fc685f6cf08a490d6c6a8a6741e8be4572adfcba233da791ccc0aee033677b72788d57004a776909f6d699a0164af514728431b5aed704b289719f09d591f5c1f9d2ed36a58448a9d57567bd232702e9b28f</span></span><br><span class="line">c = <span class="number">0x3862c872480bdd067c0c68cfee4527a063166620c97cca4c99baff6eb0cf5d42421b8f8d8300df5f8c7663adb5d21b47c8cb4ca5aab892006d7d44a1c5b5f5242d88c6e325064adf9b969c7dfc52a034495fe67b5424e1678ca4332d59225855b7a9cb42db2b1db95a90ab6834395397e305078c5baff78c4b7252d7966365afed9e</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># E = EllipticCurve(GF(P),a,b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PR.&lt;x&gt; = PolynomialRing(Zmod(P))</span></span><br><span class="line"><span class="comment"># f = (x^3+a*x+b)*(x^2)-n^2</span></span><br><span class="line"><span class="comment"># f = f.monic()</span></span><br><span class="line"><span class="comment"># for root in f.roots():</span></span><br><span class="line"><span class="comment">#     if(is_prime(root[0])):</span></span><br><span class="line"><span class="comment">#         print(root[0])</span></span><br><span class="line"></span><br><span class="line">p = <span class="number">4573744216059593260686660411936793507327994800883645562370166075007970317346237399760397301505506131100113886281839847419425482918932436139080837246914736557</span></span><br><span class="line">q = n//p</span><br><span class="line"><span class="keyword">from</span> primefac <span class="keyword">import</span> modinv</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">d = modinv(e,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">pow</span>(c,d,n)))</span><br><span class="line"><span class="comment"># watevr&#123;factoring_polynomials_over_finite_fields_is_too_ez&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="第五空间2021-ecc"><a href="#第五空间2021-ecc" class="headerlink" title="第五空间2021 ecc"></a>第五空间2021 ecc</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Try to solve the 3 ECC&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">assert</span>(flag[:<span class="number">5</span>]==<span class="string">&#x27;flag&#123;&#x27;</span>)</span><br><span class="line">flag = flag[<span class="number">5</span>:-<span class="number">1</span>]</span><br><span class="line">num1 = bytes_to_long(flag[:<span class="number">7</span>])</span><br><span class="line">num2 = bytes_to_long(flag[<span class="number">7</span>:<span class="number">14</span>])</span><br><span class="line">num3 = bytes_to_long(flag[<span class="number">14</span>:])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ECC1</span>(<span class="params">num</span>):</span><br><span class="line">	p = <span class="number">146808027458411567</span></span><br><span class="line">	A = <span class="number">46056180</span></span><br><span class="line">	B = <span class="number">2316783294673</span></span><br><span class="line">	E = EllipticCurve(GF(p),[A,B])</span><br><span class="line">	P = E.random_point() </span><br><span class="line">	Q = num*P</span><br><span class="line">	<span class="built_in">print</span> E</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;P:&#x27;</span>,P</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;Q:&#x27;</span>,Q</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ECC2</span>(<span class="params">num</span>):</span><br><span class="line">	p = <span class="number">1256438680873352167711863680253958927079458741172412327087203</span></span><br><span class="line">	<span class="comment">#import random</span></span><br><span class="line">	<span class="comment">#A = random.randrange(389718923781273978681723687163812)</span></span><br><span class="line">	<span class="comment">#B = random.randrange(816378675675716537126387613131232121431231)</span></span><br><span class="line">	A = <span class="number">377999945830334462584412960368612</span></span><br><span class="line">	B = <span class="number">604811648267717218711247799143415167229480</span></span><br><span class="line">	E = EllipticCurve(GF(p),[A,B])</span><br><span class="line">	P = E.random_point() </span><br><span class="line">	Q = num*P</span><br><span class="line">	<span class="built_in">print</span> E</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;P:&#x27;</span>,P</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;Q:&#x27;</span>,Q</span><br><span class="line">	factors, exponents = <span class="built_in">zip</span>(*factor(E.order()))</span><br><span class="line">	primes = [factors[i] ^ exponents[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(factors))][:-<span class="number">1</span>]</span><br><span class="line">	<span class="built_in">print</span> primes</span><br><span class="line">	dlogs = []</span><br><span class="line">	<span class="keyword">for</span> fac <span class="keyword">in</span> primes:</span><br><span class="line">		t = <span class="built_in">int</span>(<span class="built_in">int</span>(P.order()) / <span class="built_in">int</span>(fac))</span><br><span class="line">		dlog = discrete_log(t*Q,t*P,operation=<span class="string">&quot;+&quot;</span>)</span><br><span class="line">		dlogs += [dlog]</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;factor: &quot;</span>+<span class="built_in">str</span>(fac)+<span class="string">&quot;, Discrete Log: &quot;</span>+<span class="built_in">str</span>(dlog)) <span class="comment">#calculates discrete logarithm for each prime order</span></span><br><span class="line">	<span class="built_in">print</span> num</span><br><span class="line">	<span class="built_in">print</span> crt(dlogs,primes)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ECC3</span>(<span class="params">num</span>):</span><br><span class="line">	p = <span class="number">0xd3ceec4c84af8fa5f3e9af91e00cabacaaaecec3da619400e29a25abececfdc9bd678e2708a58acb1bd15370acc39c596807dab6229dca11fd3a217510258d1b</span></span><br><span class="line">	A = <span class="number">0x95fc77eb3119991a0022168c83eee7178e6c3eeaf75e0fdf1853b8ef4cb97a9058c271ee193b8b27938a07052f918c35eccb027b0b168b4e2566b247b91dc07</span></span><br><span class="line">	B = <span class="number">0x926b0e42376d112ca971569a8d3b3eda12172dfb4929aea13da7f10fb81f3b96bf1e28b4a396a1fcf38d80b463582e45d06a548e0dc0d567fc668bd119c346b2</span></span><br><span class="line">	E = EllipticCurve(GF(p),[A,B])</span><br><span class="line">	P = E.random_point() </span><br><span class="line">	Q = num*P</span><br><span class="line">	<span class="built_in">print</span> E</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;P:&#x27;</span>,P</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&#x27;Q:&#x27;</span>,Q</span><br><span class="line"></span><br><span class="line">ECC1(num1)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;==============&#x27;</span></span><br><span class="line">ECC2(num2)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;==============&#x27;</span></span><br><span class="line">ECC3(num3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>三层ECC<br>第一部分: 数据都很小直接离散对数求解<br>第二部分: 题目已经帮我们实现了当曲线的阶可以分解时 可以用CRT+DLP来求解<br>第三部分: 曲线的阶和p相等 SmartAttack</p>
+<p>第一部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p1 = <span class="number">146808027458411567</span></span><br><span class="line">A1 = <span class="number">46056180</span></span><br><span class="line">B1 = <span class="number">2316783294673</span></span><br><span class="line">E1 = EllipticCurve(GF(p1),[A1,B1])</span><br><span class="line">P1 = E1(<span class="number">119851377153561800</span>,<span class="number">50725039619018388</span>)</span><br><span class="line">Q1 = E1(<span class="number">22306318711744209</span>,<span class="number">111808951703508717</span>)</span><br><span class="line"></span><br><span class="line">num1 = discrete_log(Q1,P1,operation=<span class="string">&quot;+&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(num1)</span><br><span class="line"><span class="comment"># num1 = 13566003730592612</span></span><br></pre></td></tr></table></figure>
+
+<p>第二部分<br><a href="http://www.leonlist.top/2020/09/29/CTF%E5%AF%86%E7%A0%81%E5%AD%A6-ECC/" target="_blank">原理</a><br>代码(模板直接套)<br>这里发现好多模板都是对E的阶分解 但是看原理是跟P的阶有关啊 这道题我换成用P的阶完全正确(…) 等多做几道题再来商榷</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">p2 = <span class="number">1256438680873352167711863680253958927079458741172412327087203</span></span><br><span class="line">A2 = <span class="number">377999945830334462584412960368612</span></span><br><span class="line">B2 = <span class="number">604811648267717218711247799143415167229480</span></span><br><span class="line">E2 = EllipticCurve(GF(p2),[A2,B2])</span><br><span class="line">P2 = E2(<span class="number">550637390822762334900354060650869238926454800955557622817950</span>,<span class="number">700751312208881169841494663466728684704743091638451132521079</span>)</span><br><span class="line">Q2 = E2(<span class="number">1152079922659509908913443110457333432642379532625238229329830</span>,<span class="number">819973744403969324837069647827669815566569448190043645544592</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve</span>(<span class="params">P,Q,E</span>):</span><br><span class="line">    factors, exponents = <span class="built_in">zip</span>(*factor(P.order())) <span class="comment"># P or E?</span></span><br><span class="line">    primes = [factors[i] ^ exponents[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(factors))][:-<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(primes)</span><br><span class="line">    dlogs = []</span><br><span class="line">    <span class="keyword">for</span> fac <span class="keyword">in</span> primes:</span><br><span class="line">        t = <span class="built_in">int</span>(<span class="built_in">int</span>(P.order()) // <span class="built_in">int</span>(fac))</span><br><span class="line">        dlog = discrete_log(t*Q,t*P,operation=<span class="string">&quot;+&quot;</span>)</span><br><span class="line">        dlogs += [dlog]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;factor: &quot;</span>+<span class="built_in">str</span>(fac)+<span class="string">&quot;, Discrete Log: &quot;</span>+<span class="built_in">str</span>(dlog)) <span class="comment">#calculates discrete logarithm for each prime order</span></span><br><span class="line">    m = CRT_list(dlogs,primes)</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line">num2 = solve(P2,Q2,E2)</span><br><span class="line"><span class="comment"># num2 = 16093767336603949</span></span><br></pre></td></tr></table></figure>
+
+<p>第三部分<br>SmartAttack<br>模板</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">p3 = <span class="number">0xd3ceec4c84af8fa5f3e9af91e00cabacaaaecec3da619400e29a25abececfdc9bd678e2708a58acb1bd15370acc39c596807dab6229dca11fd3a217510258d1b</span></span><br><span class="line">A3 = <span class="number">0x95fc77eb3119991a0022168c83eee7178e6c3eeaf75e0fdf1853b8ef4cb97a9058c271ee193b8b27938a07052f918c35eccb027b0b168b4e2566b247b91dc07</span></span><br><span class="line">B3 = <span class="number">0x926b0e42376d112ca971569a8d3b3eda12172dfb4929aea13da7f10fb81f3b96bf1e28b4a396a1fcf38d80b463582e45d06a548e0dc0d567fc668bd119c346b2</span></span><br><span class="line">E3 = EllipticCurve(GF(p3),[A3,B3])</span><br><span class="line">P3 = E3(<span class="number">10121571443191913072732572831490534620810835306892634555532657696255506898960536955568544782337611042739846570602400973952350443413585203452769205144937861</span> ,<span class="number">8425218582467077730409837945083571362745388328043930511865174847436798990397124804357982565055918658197831123970115905304092351218676660067914209199149610</span> )</span><br><span class="line">Q3 = E3(<span class="number">964864009142237137341389653756165935542611153576641370639729304570649749004810980672415306977194223081235401355646820597987366171212332294914445469010927</span> ,<span class="number">5162185780511783278449342529269970453734248460302908455520831950343371147566682530583160574217543701164101226640565768860451999819324219344705421407572537</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(p3 == E3.order())</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SmartAttack</span>(<span class="params">P,Q,p</span>):</span><br><span class="line">    E = P.curve()</span><br><span class="line">    Eqp = EllipticCurve(Qp(p, <span class="number">2</span>), [ ZZ(t) + randint(<span class="number">0</span>,p)*p <span class="keyword">for</span> t <span class="keyword">in</span> E.a_invariants() ])</span><br><span class="line"></span><br><span class="line">    P_Qps = Eqp.lift_x(ZZ(P.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> P_Qp <span class="keyword">in</span> P_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(P_Qp.xy()[<span class="number">1</span>]) == P.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Q_Qps = Eqp.lift_x(ZZ(Q.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> Q_Qp <span class="keyword">in</span> Q_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(Q_Qp.xy()[<span class="number">1</span>]) == Q.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    p_times_P = p*P_Qp</span><br><span class="line">    p_times_Q = p*Q_Qp</span><br><span class="line"></span><br><span class="line">    x_P,y_P = p_times_P.xy()</span><br><span class="line">    x_Q,y_Q = p_times_Q.xy()</span><br><span class="line"></span><br><span class="line">    phi_P = -(x_P/y_P)</span><br><span class="line">    phi_Q = -(x_Q/y_Q)</span><br><span class="line">    k = phi_Q/phi_P</span><br><span class="line">    <span class="keyword">return</span> ZZ(k)</span><br><span class="line"></span><br><span class="line">num3 = SmartAttack(P3,Q3,p3)</span><br><span class="line"><span class="comment"># num3 = 19597596255129283097357413993866074145935170485891892</span></span><br></pre></td></tr></table></figure>
+
+<p>这道题对应的3个part也是ECC很常见的3种攻击方法 要熟练掌握 运用</p>
+<h2 id="领航杯江苏省赛2021-ECC"><a href="#领航杯江苏省赛2021-ECC" class="headerlink" title="领航杯江苏省赛2021 ECC"></a>领航杯江苏省赛2021 ECC</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">p = <span class="number">64464091191308356774703439660771627086045800299627641179047457478059588557461</span></span><br><span class="line">a = <span class="number">31926335967105564755113987930261069322507794703287741857397622356704769886356</span></span><br><span class="line">b = <span class="number">34835808070187351680507689900273321615070127680320357724483770400791707112940</span></span><br><span class="line">Gx = <span class="number">2053202552422630348010474635096983783565667661786369125783579647572276572403</span></span><br><span class="line">Gy = <span class="number">51320753844844801021362329076409450910659564359017581255542897537756778371539</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> flag[:<span class="number">5</span>] == <span class="string">&quot;CnHongKe&#123;&quot;</span></span><br><span class="line"><span class="keyword">assert</span> flag[-<span class="number">1</span>] == <span class="string">&quot;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">k = bytes_to_long(flag[<span class="number">9</span>:-<span class="number">1</span>])</span><br><span class="line"><span class="keyword">assert</span> k &lt; <span class="number">32000000000000000000000000000</span></span><br><span class="line"></span><br><span class="line">Zp = Zmod(P)</span><br><span class="line">EC = EllipticCurve(Zp, [a, b])</span><br><span class="line">G = EC(Gx, Gy)</span><br><span class="line">K = k * G</span><br><span class="line"><span class="built_in">print</span> K</span><br><span class="line"></span><br><span class="line"><span class="comment"># (31981799071949968743482831587417174146463993877255771340814476669214408840460 : 15144025062588325012239455117890516531350002058200271280110877844265896081387 : 1)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这种没给额外条件的联想到用CRT+PH来解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">64464091191308356774703439660771627086045800299627641179047457478059588557461</span></span><br><span class="line">a = <span class="number">31926335967105564755113987930261069322507794703287741857397622356704769886356</span></span><br><span class="line">b = <span class="number">34835808070187351680507689900273321615070127680320357724483770400791707112940</span></span><br><span class="line">Gx = <span class="number">2053202552422630348010474635096983783565667661786369125783579647572276572403</span></span><br><span class="line">Gy = <span class="number">51320753844844801021362329076409450910659564359017581255542897537756778371539</span></span><br><span class="line">E = EllipticCurve(Zmod(p), [a, b])</span><br><span class="line">K = (<span class="number">31981799071949968743482831587417174146463993877255771340814476669214408840460</span> , <span class="number">15144025062588325012239455117890516531350002058200271280110877844265896081387</span>)</span><br><span class="line">K = E(K)</span><br><span class="line">G = E((Gx,Gy))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve</span>(<span class="params">P,Q,E</span>):</span><br><span class="line">    factors, exponents = <span class="built_in">zip</span>(*factor(P.order())) <span class="comment"># P or E?</span></span><br><span class="line">    primes = [factors[i] ^ exponents[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(factors))][:-<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(primes)</span><br><span class="line">    dlogs = []</span><br><span class="line">    <span class="keyword">for</span> fac <span class="keyword">in</span> primes:</span><br><span class="line">        t = <span class="built_in">int</span>(<span class="built_in">int</span>(P.order()) // <span class="built_in">int</span>(fac))</span><br><span class="line">        dlog = discrete_log(t*Q,t*P,operation=<span class="string">&quot;+&quot;</span>)</span><br><span class="line">        dlogs += [dlog]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;factor: &quot;</span>+<span class="built_in">str</span>(fac)+<span class="string">&quot;, Discrete Log: &quot;</span>+<span class="built_in">str</span>(dlog)) <span class="comment">#calculates discrete logarithm for each prime order</span></span><br><span class="line">    m = CRT_list(dlogs,primes)</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line">num2 = solve(G,K,E)</span><br><span class="line"><span class="built_in">print</span>(num2)</span><br></pre></td></tr></table></figure>
+<p>解出来 11000838085296873931177<br>但是发现bit数不够 说明是一个特解 我们枚举一下求flag<br>求得P的阶后利用阶的性质来枚举</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">64464091191308356774703439660771627086045800299627641179047457478059588557461</span></span><br><span class="line">a = <span class="number">31926335967105564755113987930261069322507794703287741857397622356704769886356</span></span><br><span class="line">b = <span class="number">34835808070187351680507689900273321615070127680320357724483770400791707112940</span></span><br><span class="line">Gx = <span class="number">2053202552422630348010474635096983783565667661786369125783579647572276572403</span></span><br><span class="line">Gy = <span class="number">51320753844844801021362329076409450910659564359017581255542897537756778371539</span></span><br><span class="line">E = EllipticCurve(Zmod(p), [a, b])</span><br><span class="line">K = (<span class="number">31981799071949968743482831587417174146463993877255771340814476669214408840460</span> , <span class="number">15144025062588325012239455117890516531350002058200271280110877844265896081387</span>)</span><br><span class="line">K = E(K)</span><br><span class="line">G = E((Gx,Gy))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve</span>(<span class="params">P,Q,E</span>):</span><br><span class="line">    factors, exponents = <span class="built_in">zip</span>(*factor(P.order())) <span class="comment"># P or E?</span></span><br><span class="line">    primes = [factors[i] ^ exponents[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(factors))][:-<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(primes)</span><br><span class="line">    dlogs = []</span><br><span class="line">    <span class="keyword">for</span> fac <span class="keyword">in</span> primes:</span><br><span class="line">        t = <span class="built_in">int</span>(<span class="built_in">int</span>(P.order()) // <span class="built_in">int</span>(fac))</span><br><span class="line">        dlog = discrete_log(t*Q,t*P,operation=<span class="string">&quot;+&quot;</span>)</span><br><span class="line">        dlogs += [dlog]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;factor: &quot;</span>+<span class="built_in">str</span>(fac)+<span class="string">&quot;, Discrete Log: &quot;</span>+<span class="built_in">str</span>(dlog)) <span class="comment">#calculates discrete logarithm for each prime order</span></span><br><span class="line">    m = CRT_list(dlogs,primes)</span><br><span class="line">    n = prod(primes)</span><br><span class="line">    <span class="keyword">return</span> m,n</span><br><span class="line"></span><br><span class="line">num2,n = solve(G,K,E)</span><br><span class="line">num2 = <span class="number">11000838085296873931177</span></span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> trange(<span class="number">2</span>^<span class="number">21</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    num = num2+k*n</span><br><span class="line">    <span class="keyword">if</span> num*G==K:</span><br><span class="line">        <span class="built_in">print</span>((<span class="built_in">int</span>(num)))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># 31685206468414518702878516593</span></span><br><span class="line"><span class="comment"># factor_ordeq</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="广东强网杯2021团队组-DLP"><a href="#广东强网杯2021团队组-DLP" class="headerlink" title="广东强网杯2021团队组 DLP"></a>广东强网杯2021团队组 DLP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span>(flag[:<span class="number">5</span>] == <span class="string">b&quot;flag&#123;&quot;</span> <span class="keyword">and</span> flag[-<span class="number">1</span>:] == <span class="string">b&quot;&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line">flag = flag[<span class="number">5</span>:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">d1 = bytes_to_long(flag[:<span class="built_in">len</span>(flag)//<span class="number">2</span>])</span><br><span class="line">d2 = bytes_to_long(flag[<span class="built_in">len</span>(flag)//<span class="number">2</span>:])</span><br><span class="line"></span><br><span class="line">N1 = <span class="number">27544759469094453505371358768052861416297003882211878831861112512567899543941</span></span><br><span class="line">A1 = <span class="number">4208715803791813173086894172778966025419787767340027559010619240548499823390</span></span><br><span class="line">B1 = <span class="number">11846440123913040489420209031751160809904311707943252241515965930654415480691</span></span><br><span class="line">P1x = <span class="number">479750084250968709343887919962436485997147832319843477221083468203689368148</span></span><br><span class="line">P1y = <span class="number">15452861783577624143044213767588871736433639621547613407582902947429567101675</span></span><br><span class="line"></span><br><span class="line">P1 = (P1x,P1y)</span><br><span class="line">E1 = EllipticCurve(Zmod(N1), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A1, B1])</span><br><span class="line">P1 = E1(P1)</span><br><span class="line">Q1 = d1 * P1</span><br><span class="line"></span><br><span class="line">N2 = <span class="number">6471339743593595797696002766822660599108196938080465998531085409467</span></span><br><span class="line">A2 = <span class="number">3199218821393204771660095172457569312269694438403110131957204042314</span></span><br><span class="line">B2 = <span class="number">762889472027318213897694878260359911054972690369935049954326689904</span></span><br><span class="line">P2x = <span class="number">2557373437970770011124755960432555084678930336188254243278984381842</span></span><br><span class="line">P2y = <span class="number">4442763096366920105760404533052204677305995021662082361185473321644</span></span><br><span class="line"></span><br><span class="line">P2 = (P2x,P2y)</span><br><span class="line">E2 = EllipticCurve(Zmod(N2), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A2, B2])</span><br><span class="line">P2 = E2(P2)</span><br><span class="line">Q2 = d2 * P2</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Q1)</span><br><span class="line"><span class="built_in">print</span>(Q2)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">(14736970297054248276364510675718632926198693034158620007675880103924809577805 : 3447209262654420855289144268810543114387612255490962015335062266658385100211 : 1)</span></span><br><span class="line"><span class="string">(4834036103940457959470026215023033401071737087504569417466448644066 : 5511016821581393405975510064568222454318072088628361854656950557373 : 1)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>先贴份exp 有些地方还没弄清楚<br>大致意思是 这里的N都不大 我们可以分解出来 转换成 p,q的求解<br>然后对应 p比较光滑 和 p&#x3D;&#x3D;E.order()的情况 分别用Pohlig-Hellman 和 SmartAttack<br>有个要注意的点是 P1,Q1不是生成元 所以最后CRT组合的时候要用点的阶而不是曲线的阶</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SmartAttack</span>(<span class="params">P,Q,p</span>):</span><br><span class="line">    E = P.curve()</span><br><span class="line">    Eqp = EllipticCurve(Qp(p, <span class="number">2</span>), [ ZZ(t) + randint(<span class="number">0</span>,p)*p <span class="keyword">for</span> t <span class="keyword">in</span> E.a_invariants() ])</span><br><span class="line"></span><br><span class="line">    P_Qps = Eqp.lift_x(ZZ(P.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> P_Qp <span class="keyword">in</span> P_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(P_Qp.xy()[<span class="number">1</span>]) == P.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    Q_Qps = Eqp.lift_x(ZZ(Q.xy()[<span class="number">0</span>]), <span class="built_in">all</span>=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> Q_Qp <span class="keyword">in</span> Q_Qps:</span><br><span class="line">        <span class="keyword">if</span> GF(p)(Q_Qp.xy()[<span class="number">1</span>]) == Q.xy()[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    p_times_P = p*P_Qp</span><br><span class="line">    p_times_Q = p*Q_Qp</span><br><span class="line"></span><br><span class="line">    x_P,y_P = p_times_P.xy()</span><br><span class="line">    x_Q,y_Q = p_times_Q.xy()</span><br><span class="line"></span><br><span class="line">    phi_P = -(x_P/y_P)</span><br><span class="line">    phi_Q = -(x_Q/y_Q)</span><br><span class="line">    k = phi_Q/phi_P</span><br><span class="line">    <span class="keyword">return</span> ZZ(k)</span><br><span class="line"></span><br><span class="line">N1 = </span><br><span class="line">A1 = </span><br><span class="line">B1 = </span><br><span class="line">P1x = </span><br><span class="line">P1y = </span><br><span class="line"></span><br><span class="line">Q1x = </span><br><span class="line">Q1y = </span><br><span class="line"></span><br><span class="line">p1 = </span><br><span class="line">q1 = </span><br><span class="line"></span><br><span class="line">P1 = (P1x, P1y)</span><br><span class="line">Q1 = (Q1x, Q1y)</span><br><span class="line">E1p = EllipticCurve(Zmod(p1), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A1, B1])</span><br><span class="line">n1p = E1p.order()</span><br><span class="line">P1p = E1p(P1)</span><br><span class="line">Q1p = E1p(Q1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(n1p)</span></span><br><span class="line"><span class="comment"># Pohlig Hellman</span></span><br><span class="line">d1p = P1p.discrete_log(Q1p)</span><br><span class="line"></span><br><span class="line">E1q = EllipticCurve(Zmod(q1), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A1, B1])</span><br><span class="line">n1q = E1q.order()</span><br><span class="line">P1q = E1q(P1)</span><br><span class="line">Q1q = E1q(Q1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(n1q)</span></span><br><span class="line"><span class="comment"># Smart</span></span><br><span class="line">d1q = SmartAttack(P1q, Q1q, q1)</span><br><span class="line"></span><br><span class="line">d1 = crt([d1p, d1q], [P1p.order(), P1q.order()])</span><br><span class="line"><span class="built_in">print</span>(d1)</span><br><span class="line"></span><br><span class="line">N2 = </span><br><span class="line">A2 = </span><br><span class="line">B2 = </span><br><span class="line">P2x = </span><br><span class="line">P2y = </span><br><span class="line">Q2x = </span><br><span class="line">Q2y = </span><br><span class="line"></span><br><span class="line">p2 = <span class="number">69857405335111415530599248077</span></span><br><span class="line">q2 = <span class="number">92636417177965240871815246762704348071</span></span><br><span class="line"></span><br><span class="line">P2 = (P2x,P2y)</span><br><span class="line">Q2 = (Q2x,Q2y)</span><br><span class="line">E2p = EllipticCurve(Zmod(p2), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A2, B2])</span><br><span class="line">n2p = E2p.order()</span><br><span class="line">P2p = E2p(P2)</span><br><span class="line">Q2p = E2p(Q2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(n2p)</span></span><br><span class="line"><span class="comment"># Pohlig Hellman</span></span><br><span class="line"><span class="comment"># d2p = P2p.discrete_log(Q2p)</span></span><br><span class="line"><span class="comment"># 64863796476861801236088764479</span></span><br><span class="line">d2p = <span class="number">64863796476861801236088764479</span></span><br><span class="line"></span><br><span class="line">E2q = EllipticCurve(Zmod(q2), [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, A2, B2])</span><br><span class="line">n2q = E2q.order()</span><br><span class="line">P2q = E2q(P2)</span><br><span class="line">Q2q = E2q(Q2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(n2q)</span></span><br><span class="line"><span class="comment"># Pohlig Hellman</span></span><br><span class="line">d2q = P2q.discrete_log(Q2q)</span><br><span class="line"></span><br><span class="line">d2 = crt([d2p, d2q], [P2p.order(), P2q.order()])</span><br><span class="line"><span class="built_in">print</span>(d2)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<p>大致列举了一些题目&#x2F;知识点<br>ECC很多进阶地方都需要较好的群论基础 等学的更扎实了再回来看 希望能有更深的体会</p>
+
+    </div>
+
+    
+    
+    
+  <div>  <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:17px;">------------EOF------------</div>
+    
+</div> </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>U-L-G-A-N-O-Y
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://u-l-g-a-n-o-y.github.io/2023/12/08/Crypto-ECC/" title="Crypto-ECC">http://u-l-g-a-n-o-y.github.io/2023/12/08/Crypto-ECC/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/08/Reverse-Other/" rel="prev" title="Reverse-Other">
+      <i class="fa fa-chevron-left"></i> Reverse-Other
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9-%E5%AE%9A%E4%B9%89"><span class="nav-text">相关知识点&#x2F;定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF"><span class="nav-text">椭圆曲线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E4%B8%8A%E7%9A%84%E5%8A%A0%E6%B3%95"><span class="nav-text">椭圆曲线上的加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-ECC"><span class="nav-text">What is ECC?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sage%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="nav-text">Sage相关函数实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2022%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2-point-power"><span class="nav-text">2022巅峰极客 point-power</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watevrCTF2019-ECC-RSA"><span class="nav-text">watevrCTF2019 ECC-RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B42021-ecc"><span class="nav-text">第五空间2021 ecc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E8%88%AA%E6%9D%AF%E6%B1%9F%E8%8B%8F%E7%9C%81%E8%B5%9B2021-ECC"><span class="nav-text">领航杯江苏省赛2021 ECC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B8%9C%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E5%9B%A2%E9%98%9F%E7%BB%84-DLP"><span class="nav-text">广东强网杯2021团队组 DLP</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="U-L-G-A-N-O-Y"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">U-L-G-A-N-O-Y</p>
+  <div class="site-description" itemprop="description">Laus Deo</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">U-L-G-A-N-O-Y</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">28k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">51 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"superSample":2,"position":"right","width":180,"height":288,"hOffset":110,"vOffset":-30},"mobile":{"show":true}});</script></body>
+</html>
+
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<!-- 雪花特效2 -->
+<script type="text/javascript" src="/js/snow2.js"></script>

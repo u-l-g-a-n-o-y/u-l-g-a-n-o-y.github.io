@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/</loc>
+    
+    <lastmod>2023-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/2023-12-Diary/</loc>
     
     <lastmod>2023-12-08</lastmod>
@@ -137,15 +146,6 @@
   </url>
   
   <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1jadx-APK%E5%8A%A8%E8%B0%83/</loc>
-    
-    <lastmod>2023-12-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://u-l-g-a-n-o-y.github.io/photos/index.html</loc>
     
     <lastmod>2023-12-03</lastmod>
@@ -192,13 +192,6 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-WP/</loc>
-    <lastmod>2023-12-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Re/</loc>
     <lastmod>2023-12-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

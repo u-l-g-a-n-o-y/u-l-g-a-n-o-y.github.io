@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/04/web-CTFshow/</loc>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/10/Windows-Programming-Exercise/</loc>
     
     <lastmod>2023-12-10</lastmod>
     
@@ -12,6 +12,15 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/2023-12-Diary/</loc>
+    
+    <lastmod>2023-12-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/04/web-CTFshow/</loc>
     
     <lastmod>2023-12-10</lastmod>
     

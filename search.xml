@@ -1162,6 +1162,10 @@
 <hr>
 <hr>
 <p>抽空还得看看具体怎么反调试的 以及IDA怎么反反调试</p>
+<p>其实通过这段代码(概率性的F5出来了)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">v19 = (<span class="type">unsigned</span> __int8)BASE64_table_4D9278[v25 + <span class="number">11</span>];</span><br><span class="line">v8 = <span class="built_in">runtime_intstring</span>(</span><br><span class="line">       <span class="number">0</span>,</span><br><span class="line">       v19,</span><br><span class="line">       (<span class="type">unsigned</span> <span class="type">int</span>)<span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span>,</span><br><span class="line">       v24,</span><br><span class="line">       (<span class="type">int</span>)v25 + <span class="number">11</span>,</span><br><span class="line">       v12,</span><br><span class="line">       v13,</span><br><span class="line">       v14,</span><br><span class="line">       v15,</span><br><span class="line">       v53,</span><br><span class="line">       v59);</span><br><span class="line"><span class="built_in">LODWORD</span>(v9) = v19;</span><br></pre></td></tr></table></figure>
+
+<p>可以猜到大致是移位11位 外面套了个64的循环 那么应该是取index赋值之类</p>
 ]]></content>
       <categories>
         <category>CTF-Reverse</category>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="记载CTFshow上的web题目(少数能复现 大多都只能看WP&#x2F;视频 来积累思路)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T13:01:37.000Z">
-<meta property="article:modified_time" content="2023-12-10T06:32:58.706Z">
+<meta property="article:modified_time" content="2023-12-19T13:39:37.107Z">
 <meta property="article:author" content="ULGANOY">
 <meta name="twitter:card" content="summary">
 
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-10 14:32:58" itemprop="dateModified" datetime="2023-12-10T14:32:58+08:00">2023-12-10</time>
+                <time title="修改时间：2023-12-19 21:39:37" itemprop="dateModified" datetime="2023-12-19T21:39:37+08:00">2023-12-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,7 +287,7 @@
 <h2 id="web12-敏感信息公布"><a href="#web12-敏感信息公布" class="headerlink" title="web12 敏感信息公布"></a>web12 敏感信息公布</h2><p>哇 很有趣的题~<br>利用题目提示 在下面heapline找到 372619038 猜测这是密码<br>但是找了半天找不到哪里用得上<br>看提示 说返回 &#x2F;admin ! 学到了 然后以 admin 372619038 登录即可得到flag~</p>
 <h2 id="web13-内部技术文档泄露"><a href="#web13-内部技术文档泄露" class="headerlink" title="web13 内部技术文档泄露"></a>web13 内部技术文档泄露</h2><p>这 属实想不到 orz<br>Home最下面会发现document可以点！ 然后就能下载得到pdf…<br>里面<del>贴心的</del>记录了登录路径&#x2F;用户名&#x2F;密码…<br>跟着访问即可得到flag</p>
 <h2 id="web14-编辑器配置不当"><a href="#web14-编辑器配置不当" class="headerlink" title="web14 编辑器配置不当"></a>web14 编辑器配置不当</h2><p>az 访问 &#x2F;editor (…)<br>进入里面 找到图片上传 发现可以访问文件空间 能看到网站的所有信息<br>然后在 &#x2F;var&#x2F;www&#x2F;nothinghere下找到flag地址 访问&#x2F;nothinghere&#x2F;flag…txt即可<br>&#x2F;var&#x2F;www下放置的是站点配置 所以用后面地址才能访问</p>
-<h2 id="web15-密码逻辑脆弱"><a href="#web15-密码逻辑脆弱" class="headerlink" title="web15 密码逻辑脆弱"></a>web15 密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯 <a href="mailto:&#49;&#x31;&#53;&#54;&#x36;&#51;&#x31;&#x39;&#x36;&#x31;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;">&#49;&#x31;&#53;&#54;&#x36;&#51;&#x31;&#x39;&#x36;&#x31;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;</a> (敲响警钟！ 自己网站也要注意！)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安 就行了 orz<br>密码被重置为 admin7789</p>
+<h2 id="web15-密码逻辑脆弱"><a href="#web15-密码逻辑脆弱" class="headerlink" title="web15 密码逻辑脆弱"></a>web15 密码逻辑脆弱</h2><p>网站最下面泄露邮箱咯 <a href="mailto:&#49;&#x31;&#53;&#x36;&#54;&#x33;&#49;&#57;&#54;&#49;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#109;">&#49;&#x31;&#53;&#x36;&#54;&#x33;&#49;&#57;&#54;&#49;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#109;</a> (敲响警钟！ 自己网站也要注意！)<br>访问 &#x2F;admin 密码尝试 1156631961发现不对劲 怎么都登不进去<br>又学到骚操作了 忘记密码 密保是城市 那么利用QQ号搜索！！！<br>在西安 就行了 orz<br>密码被重置为 admin7789</p>
 <h2 id="web16-探针泄露"><a href="#web16-探针泄露" class="headerlink" title="web16 探针泄露"></a>web16 探针泄露</h2><p>你别说这网站还挺炫的 orz<br>?? 什么是探针??? </p>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82">https://xz.aliyun.com/t/2222#:~:text=%E7%BD%91%E7%AB%99%E6%8E%A2%E9%92%88%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF,%E5%9C%A8%E5%90%84%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E4%B8%8A%E3%80%82</a></p>
 <p>但是这道题 访问 &#x2F;tz.php<br>发现phpinfo()可以点击查看(也符合上面链接的介绍)<br>搜索flag即得</p>
@@ -336,6 +336,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[0-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\/i&quot;</span>, <span class="variable">$c</span>))&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里剩下了字母 分号 下划线等(其实题目过滤的是中文括号！！！)<br>emmm 完全不会~ 学习一下<br>看hint:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="title function_ invoke__">next</span>(<span class="title function_ invoke__">array_reverse</span>(<span class="title function_ invoke__">scandir</span>(<span class="title function_ invoke__">pos</span>(<span class="title function_ invoke__">localeconv</span>()))))); GXYCTF的禁止套娃 通过cookie获得参数进行命令执行</span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">session_start</span>();<span class="title function_ invoke__">system</span>(<span class="title function_ invoke__">session_id</span>());</span><br><span class="line">passid=ls</span><br></pre></td></tr></table></figure>
+
 <h3 id="solution1"><a href="#solution1" class="headerlink" title="solution1"></a>solution1</h3><p>payload: <code>/?c=show_source(next(array_reverse(scandir(pos(localeconv())))));</code> 可以得到flag<br>或者 <code>/?c=show_source(next(array_reverse(scandir(getcwd()))));</code><br>当然这里也可以把 <code>show_source</code> 改为 <code>echo highlight_file</code> (这时回显是flag后跟了一个1)<br>orz tql 先放这</p>
 <ul>
 <li>getcwd() 函数返回当前工作目录。它可以代替pos(localeconv())</li>
@@ -348,7 +349,7 @@
 <li>show_source():查看源码</li>
 <li>pos() 函数返回数组中的当前元素的值。该函数是current()函数的别名。每个数组中都有一个内部的指针指向它的”当前”元素，初始指向插入到数组中的第一个元素。提示：该函数不会移动数组内部指针。</li>
 </ul>
-<h3 id="solution2"><a href="#solution2" class="headerlink" title="solution2"></a><del>solution2</del></h3><p>题目提示还给了一种方法<br>先传payload:  <code>/?c=session_start();system(session_id());</code><br>然后找到PHPSESSID 将值修改为 ls(bp抓包修改也行) 就可以执行 system(“ls”)! orz 太秀了吧…<br>但是呢 这样拿不到flag.php的值 这样改了传过后PHPSESSID也变了(但这种也是一个很有趣额思路)</p>
+<h3 id="solution2"><a href="#solution2" class="headerlink" title="solution2"></a><del>solution2</del></h3><p>题目提示还给了一种方法<br>先传payload:  <code>/?c=session_start();system(session_id());</code><br>然后找到PHPSESSID 将值修改为 ls(bp抓包修改也行) 就可以执行 system(“ls”)! orz 太秀了吧…<br>但是呢 这样拿不到flag.php的值 这样改了传过后PHPSESSID也变了(但这种也是一个很有趣的思路)</p>
 <h3 id="solution3"><a href="#solution3" class="headerlink" title="solution3"></a>solution3</h3><p>视频给了另外的方法<br>也学习到了很多新东西</p>
 <ul>
 <li>get_defined_vars() 返回一个包含所有已定义变量的多维数组。这些变量包括环境变量、服务器变量和用户定义的变量，例如GET、POST、FILE等等。</li>
@@ -574,7 +575,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -626,7 +627,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:19</span>
 </div>
 
         

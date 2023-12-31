@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/31/Welcome-2024/</loc>
+    
+    <lastmod>2023-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/31/Misc-%E7%A4%BE%E5%9B%A2%E5%AE%A3%E8%AE%B2/</loc>
+    
+    <lastmod>2023-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web-Other/</loc>
     
-    <lastmod>2023-12-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/</loc>
-    
-    <lastmod>2023-12-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web-Template/</loc>
-    
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +31,25 @@
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/2023-12-Diary/</loc>
     
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web/</loc>
+    
+    <lastmod>2023-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/</loc>
+    
+    <lastmod>2023-12-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -229,7 +247,7 @@
 
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -239,42 +257,42 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Crypto/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-WP/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Reverse/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/ReverseEngineering/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/osu/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Web/</loc>
-    <lastmod>2023-12-28</lastmod>
+    <lastmod>2023-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

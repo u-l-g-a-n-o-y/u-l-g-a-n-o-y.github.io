@@ -520,7 +520,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = sdsdsddwwddsdddssaaassddddssasaaaaawwwaaasssdsdsdddddddd</span><br></pre></td></tr></table></figure>
 
 <p>最后flag<br>*<em>flag{e1df25dac4906584fe2d6f155b60e233}</em></p>
-<h2 id="NSSCTF-2022-Spring-Recruit-easy-Pe"><a href="#NSSCTF-2022-Spring-Recruit-easy-Pe" class="headerlink" title="[NSSCTF 2022 Spring Recruit]easy Pe"></a>[NSSCTF 2022 Spring Recruit]easy Pe</h2><p>虽说有来源 但是懒得新建分类了</p>
+<h2 id="NSSCTF-2022-Spring-Recruit-easy-Pe"><a href="#NSSCTF-2022-Spring-Recruit-easy-Pe" class="headerlink" title="[NSSCTF 2022 Spring Recruit]easy Pe"></a>[NSSCTF 2022 Spring Recruit]easy Pe</h2><p>2024年做的第一道逆向题~<br>虽说有来源 但是懒得新建分类了</p>
 <p>这题挺有意思的 用CFFEXPLOERER看可以看到有t.exe以外的resource<br>点击运行exe可以发现在执行cmdshell之前有一个短暂的gui界面</p>
 <p>IDA打开exe<br>WinMain的341行可以找到</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sub_401A18</span>(&amp;lpText, v37);</span><br><span class="line">StartupInfo.dwXCountChars = <span class="number">0</span>;</span><br><span class="line">StartupInfo.dwYCountChars = <span class="number">1</span>;</span><br><span class="line">StartupInfo.hStdError = <span class="number">0</span>;</span><br><span class="line">StartupInfo.dwYSize = v50 != <span class="number">0</span> ? (DWORD)lpText : <span class="number">0</span>;</span><br><span class="line"><span class="built_in">ShellExecuteExA</span>((SHELLEXECUTEINFOA *)&amp;StartupInfo.lpDesktop);</span><br></pre></td></tr></table></figure>

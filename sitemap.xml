@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/Diary/</loc>
+    
+    <lastmod>2024-01-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/31/Welcome-2024/</loc>
     
     <lastmod>2023-12-31</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web-Other/</loc>
-    
-    <lastmod>2023-12-31</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/2023-12-Diary/</loc>
     
     <lastmod>2023-12-31</lastmod>
     
@@ -238,7 +238,7 @@
 
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -248,42 +248,42 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Crypto/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-WP/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Reverse/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/ReverseEngineering/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/osu/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Web/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2024-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/</loc>
+    <loc>http://u-l-g-a-n-o-y.github.io/2024/01/04/Java-%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/</loc>
     
     <lastmod>2024-01-04</lastmod>
     
@@ -12,6 +12,15 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/Diary/</loc>
+    
+    <lastmod>2024-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/</loc>
     
     <lastmod>2024-01-04</lastmod>
     
@@ -283,6 +292,13 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/categories/CTF-Web/</loc>
+    <lastmod>2024-01-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/categories/WHK/</loc>
     <lastmod>2024-01-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

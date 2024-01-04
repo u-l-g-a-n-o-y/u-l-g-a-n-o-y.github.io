@@ -1,5 +1,6 @@
-http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/
+http://u-l-g-a-n-o-y.github.io/2024/01/04/Java-%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/
 http://u-l-g-a-n-o-y.github.io/2023/12/03/Diary/
+http://u-l-g-a-n-o-y.github.io/2023/12/08/Reverse-Other/
 http://u-l-g-a-n-o-y.github.io/2023/12/31/Welcome-2024/
 http://u-l-g-a-n-o-y.github.io/2023/12/28/Web-Other/
 http://u-l-g-a-n-o-y.github.io/2023/12/28/Web/
@@ -31,3 +32,4 @@ http://u-l-g-a-n-o-y.github.io/categories/CTF-Reverse/
 http://u-l-g-a-n-o-y.github.io/categories/ReverseEngineering/
 http://u-l-g-a-n-o-y.github.io/categories/osu/
 http://u-l-g-a-n-o-y.github.io/categories/CTF-Web/
+http://u-l-g-a-n-o-y.github.io/categories/WHK/

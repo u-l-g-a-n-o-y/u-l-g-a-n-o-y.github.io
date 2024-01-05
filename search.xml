@@ -1416,7 +1416,7 @@
 <p><strong>hgame{y0ur_rever5e_sk1ll_i5_very_g0od!!}</strong></p>
 <hr>
 <hr>
-<p>总结: 重点在于jmp&#x2F;jne&#x2F;je时我们的pc是要继续跟着+2的 而不是直接跳转到opcode[pc+1]的地址<br>准确来说应该不能命名为pc 看成eip更妥当<br>pc是指令的位置 在opcode执行时是跟着跳转的  eip储存的是当前语句的位置 是顺序走的<br>所以应该把打印opcode的pc全部换成eip才符合原理</p>
+<p>总结: 重点在于jmp&#x2F;jne&#x2F;je时我们的pc是要继续跟着+2的 而不是直接跳转到opcode[pc+1]的地址<br>准确来说应该不能命名为pc 看成eip更妥当<br>pc是指令地址 在opcode执行时是跟着跳转的  eip储存的是当前语句的位置 是顺序走的<br>所以应该把打印opcode的pc全部换成eip才符合原理</p>
 <p>然后就是手撕汇编的时候要注意到初始数组的多重功能</p>
 <p>vm+opcode确实很好玩(也很累…) 做这种可以很好地<del>复习计组</del>理解原理&#x2F;提升逆向基本功&#x2F;<del>锻炼耐心</del></p>
 <h1 id="未知来源"><a href="#未知来源" class="headerlink" title="未知来源"></a>未知来源</h1><h2 id="ctfshow-reverse-比赛原题-snake"><a href="#ctfshow-reverse-比赛原题-snake" class="headerlink" title="ctfshow-reverse-比赛原题-snake"></a>ctfshow-reverse-比赛原题-snake</h2><p>py反编译</p>

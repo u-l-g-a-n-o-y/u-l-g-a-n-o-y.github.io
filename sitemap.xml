@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/Diary/</loc>
-    
-    <lastmod>2024-01-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web-Other/</loc>
     
     <lastmod>2024-01-06</lastmod>
@@ -21,6 +12,15 @@
   
   <url>
     <loc>http://u-l-g-a-n-o-y.github.io/2023/12/28/Web/</loc>
+    
+    <lastmod>2024-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://u-l-g-a-n-o-y.github.io/2023/12/03/Diary/</loc>
     
     <lastmod>2024-01-06</lastmod>
     
